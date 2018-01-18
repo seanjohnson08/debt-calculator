@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import logo from './logo.svg';
+import Debt from './models/Debt';
+import DebtList from './components/DebtList';
+import './Reset.css';
 import './App.css';
+
 
 class App extends Component {
   constructor(){
     super();
 
-     this.state = {
-      modalIsOpen: true
+    this.state = {
+      modalIsOpen: false
     };
+    this.debts = [
+      new Debt(),
+      new Debt({
+        principle: 30000,
+        description: 'My Car',
+        lifetime: 10 * 12,
+      })
+    ];
 
     this.openModal = this.openModal.bind(this);
     this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -21,7 +32,7 @@ class App extends Component {
   }
 
   afterOpenModal() {
-    this.subtitle.style.color = "#F00";
+    this.subtitle.style.color = '#F00';
   }
 
   closeModal() {
@@ -30,14 +41,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div class="App">
+        <main className="Calculator">
+          <DebtList debts={this.debts} />
+          <div class="ResultsPane">
+            <div class="Graph">
+            </div>
+          </div>
+        </main>
         <button onClick={this.openModal}>Open Modal</button>
         <Modal 
           isOpen={this.state.modalIsOpen}
