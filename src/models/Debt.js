@@ -1,6 +1,23 @@
-class Debt {
-  constructor(properties) {
-    const defaults = {
+import Model from './Model';
+
+const DebtTypes = [ 'mortgage', 'car', 'loan' ];
+
+class Debt extends Model {
+  properties() {
+    return {
+      description: Model.String,
+      type: Model.Enum(DebtTypes),
+      lifetime: Model.Integer,
+      principle: Model.Integer,
+      balance: Model.Integer,
+      elapsedTime: Model.Integer,
+      rate: Model.Integer,
+      minimumMonthlyPayment: Model.Integer,
+    };
+  }
+
+  defaults() {
+    return {
       description: 'Home Mortgage',
       type: 'mortgage', // enum
       lifetime: 30 * 12, // Months
@@ -10,9 +27,8 @@ class Debt {
       rate: 102, // Percent
       minimumMonthlyPayment: 100 // Dollars
     };
-
-    Object.assign(this, defaults, properties);
   }
 }
 
 export default Debt;
+export { DebtTypes };

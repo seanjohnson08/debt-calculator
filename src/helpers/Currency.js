@@ -14,7 +14,7 @@ function formatCurrency(numberValue) {
   const cents = amount.slice(-2);
 
 
-  return `\$${dollars}.${cents}`;
+  return `$${dollars}.${cents}`;
 }
 
 export default formatCurrency;
