@@ -8,7 +8,7 @@ import './App.css';
 
 class App extends Component {
 
-  constructor(){
+  constructor() {
     super();
 
     this.state = {
@@ -41,7 +41,7 @@ class App extends Component {
         <main className="Calculator">
           <div className="Debts">
             <DebtList debts={this.debts} />
-            <button onClick={this.openModal}>Open Modal</button>
+            <button onClick={this.openModal}>Add Debt</button>
           </div>
           <div class="ResultsPane">
             <div class="Graph">
