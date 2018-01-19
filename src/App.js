@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 import Debt from './models/Debt';
 import DebtList from './components/DebtList';
+import DebtDialog from './DebtDialog.js';
 import './Reset.css';
 import './App.css';
 
 
 class App extends Component {
+
   constructor(){
     super();
 
@@ -23,16 +24,11 @@ class App extends Component {
     ];
 
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
   openModal() {
     this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal() {
-    this.subtitle.style.color = '#F00';
   }
 
   closeModal() {
@@ -50,22 +46,7 @@ class App extends Component {
           </div>
         </main>
         <button onClick={this.openModal}>Open Modal</button>
-        <Modal 
-          isOpen={this.state.modalIsOpen}
-          aria={{
-            labelledby: "heading",
-            describedby: " full_description"
-          }}
-        >
-          <button onClick={this.closeModal}>close</button>
-          <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-          </form>
-        </Modal>
+        <DebtDialog isOpen={this.state.modalIsOpen} onClose={this.closeModal}>This is a test</DebtDialog>
       </div>
     );
   }
