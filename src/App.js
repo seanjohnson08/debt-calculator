@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Debt from './models/Debt';
 import DebtList from './components/DebtList';
-import DebtDialog from './DebtDialog.js';
+import DebtDialog from './components/DebtDialog.js';
 import './Reset.css';
 import './App.css';
 
 
 class App extends Component {
 
-  constructor(){
+  constructor() {
     super();
 
     this.state = {
@@ -42,13 +42,15 @@ class App extends Component {
     return (
       <div className="App">
         <main className="Calculator">
-          <DebtList debts={this.debts} />
+          <div className="Debts">
+            <DebtList debts={this.debts} />
+            <button onClick={this.openModal}>Add Debt</button>
+          </div>
           <div className="ResultsPane">
             <div className="Graph">
             </div>
           </div>
         </main>
-        <button onClick={this.openModal}>Open Modal</button>
         <DebtDialog isOpen={this.state.modalIsOpen} onClose={this.closeModal}>This is a test</DebtDialog>
       </div>
     );
