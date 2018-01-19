@@ -5,7 +5,7 @@ class DebtList extends Component {
   render() {
     const DebtListItems = this.props.debts.map((debt) => {
       return (
-        <DebtListItem debt={debt} />
+        <DebtListItem debt={debt} key={debt.id} />
       );
     });
 
