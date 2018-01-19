@@ -15,8 +15,11 @@ class App extends Component {
       modalIsOpen: false
     };
     this.debts = [
-      new Debt(),
       new Debt({
+        id: 1,
+      }),
+      new Debt({
+        id: 2,
         principle: 30000,
         description: 'My Car',
         lifetime: 10 * 12,
@@ -37,11 +40,11 @@ class App extends Component {
 
   render() {
     return (
-      <div class="App">
+      <div className="App">
         <main className="Calculator">
           <DebtList debts={this.debts} />
-          <div class="ResultsPane">
-            <div class="Graph">
+          <div className="ResultsPane">
+            <div className="Graph">
             </div>
           </div>
         </main>

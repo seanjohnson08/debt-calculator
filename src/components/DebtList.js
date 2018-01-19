@@ -10,7 +10,7 @@ class DebtList extends Component {
     });
 
     return (
-      <ul class="DebtList">
+      <ul className="DebtList">
         {DebtListItems}
       </ul>
     );

@@ -6,7 +6,7 @@ class DebtList extends Component {
     const debt = this.props.debt;
 
     return (
-      <li class="DebtListItem">
+      <li className="DebtListItem">
         <h2>{debt.description}</h2>
         <dl>
           <dt>Total Principle</dt><dd>{Currency(debt.principle)}</dd>
