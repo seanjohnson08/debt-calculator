@@ -39,13 +39,15 @@ class App extends Component {
     return (
       <div class="App">
         <main className="Calculator">
-          <DebtList debts={this.debts} />
+          <div className="Debts">
+            <DebtList debts={this.debts} />
+            <button onClick={this.openModal}>Open Modal</button>
+          </div>
           <div class="ResultsPane">
             <div class="Graph">
             </div>
           </div>
         </main>
-        <button onClick={this.openModal}>Open Modal</button>
         <DebtDialog isOpen={this.state.modalIsOpen} onClose={this.closeModal}>This is a test</DebtDialog>
       </div>
     );
