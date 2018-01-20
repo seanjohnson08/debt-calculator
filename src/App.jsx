@@ -19,7 +19,7 @@ class App extends Component {
       modalIsOpen: false,
     };
 
-    this.debts = Store.getAll(Debt);
+    this.state.debts = Store.getAll(Debt);
 
     this.clear= this.clear.bind(this);
     this.openModal = this.openModal.bind(this);
@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   saveDebt(debt){
-    this.debts.push(debt);
+    this.state.debts.push(debt);
     Store.commit();
   }
 
@@ -50,12 +50,12 @@ class App extends Component {
       <div className="App">
         <main className="Calculator">
           <div className="Debts">
-            <DebtList debts={this.debts} />
+            <DebtList debts={this.state.debts} />
             <button onClick={this.openModal}>Add Debt</button>
             <button onClick={this.clear}>Clear Everything</button>
           </div>
           <div className="ResultsPane">
-            <DebtPlot debts={this.debts} width={600} height={300} />
+            <DebtPlot debts={this.state.debts} width={600} height={300} />
           </div>
         </main>
         <DebtDialog 

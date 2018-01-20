@@ -17,4 +17,12 @@ function formatCurrency(numberValue) {
   return `$${dollars}.${cents}`;
 }
 
+export function formatCurrencyNumber(numberValue){
+	if(numberValue > 100){
+		return '0' + formatCurrency(numberValue).slice(1);
+	} else {
+		return formatCurrency(numberValue).slice(1);
+	}
+}
+
 export default formatCurrency;
