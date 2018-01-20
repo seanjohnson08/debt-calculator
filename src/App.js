@@ -29,6 +29,7 @@ class App extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.save = this.save
   }
 
   openModal() {
@@ -51,7 +52,11 @@ class App extends Component {
             <DebtPlot debts={this.debts} width={600} height={300} />
           </div>
         </main>
-        <DebtDialog isOpen={this.state.modalIsOpen} onClose={this.closeModal}>This is a test</DebtDialog>
+        <DebtDialog 
+          isOpen={this.state.modalIsOpen} 
+          onClose={this.closeModal} 
+          debtObj={this.state.curDebtObj} 
+          save={this.saveDebt}>This is a test</DebtDialog>
       </div>
     );
   }
