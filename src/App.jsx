@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Debt from './models/Debt';
-import DebtList from './components/DebtList';
-import DebtDialog from './components/DebtDialog';
-import DebtPlot from './components/DebtPlot';
+import DebtList from './components/DebtList.jsx';
+import DebtDialog from './components/DebtDialog.jsx';
+import DebtPlot from './components/DebtPlot.jsx';
 import './Reset.css';
 import './App.css';
 
@@ -29,6 +29,7 @@ class App extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.save = this.save
   }
 
   openModal() {
@@ -51,7 +52,11 @@ class App extends Component {
             <DebtPlot debts={this.debts} width={600} height={300} />
           </div>
         </main>
-        <DebtDialog isOpen={this.state.modalIsOpen} onClose={this.closeModal}>This is a test</DebtDialog>
+        <DebtDialog 
+          isOpen={this.state.modalIsOpen} 
+          onClose={this.closeModal} 
+          debtObj={this.state.curDebtObj} 
+          save={this.saveDebt}>This is a test</DebtDialog>
       </div>
     );
   }

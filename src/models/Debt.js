@@ -1,6 +1,6 @@
 import Model from './Model';
 
-const DebtTypes = [ 'mortgage', 'car', 'loan' ];
+const DebtTypes = [ 'mortgage', 'car', 'loan', 'card'];
 
 class Debt extends Model {
   properties() {

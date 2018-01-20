@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DebtListItem from './DebtListItem';
+import DebtListItem from './DebtListItem.jsx';
 
 class DebtList extends Component {
   render() {
