@@ -1,5 +1,9 @@
 import Debt from '../models/Debt';
 
+const modelTypes = {
+  'Debt': Debt
+};
+
 let _instance;
 
 /**
@@ -23,18 +27,41 @@ class Store {
    * Load data into our application
    */
   load() {
-    // TODO: load from local storage
-    this.dataStore = [
-      new Debt({
-        id: 1,
-      }),
-      new Debt({
-        id: 2,
-        principle: 30000,
-        description: 'My Car',
-        lifetime: 10 * 12,
-      })
-    ];
+    const dataFromLocalStorage = localStorage.getItem('dataStore');
+
+    if (dataFromLocalStorage) {
+      this.dataStore = JSON.parse(dataFromLocalStorage).map(([modelClass, data]) => {
+        return new modelTypes[modelClass](data);
+      });
+    }
+
+    /** Temporarily add debts to the store for testing */
+    if (!this.dataStore) {
+      this.dataStore = [
+        new Debt({
+          id: 1,
+        }),
+        new Debt({
+          id: 2,
+          principle: 30000,
+          description: 'My Car',
+          lifetime: 10 * 12,
+        })
+      ];
+
+      this.commit();
+    }
+  }
+
+  /**
+   * Commits the current data store to persistent storage
+   */
+  commit() {
+    const serializedStore = this.dataStore.map((model) => {
+      return [model.constructor.name, model.valueOf()];
+    });
+
+    localStorage.setItem('dataStore', JSON.stringify(serializedStore));
   }
 
   /**
@@ -56,6 +83,9 @@ class Store {
   createModel(modelClass, data = {}) {
     const model = new modelClass(data);
     this.dataStore.push(model);
+
+    // TODO: should the store commit every time a model is created?
+    this.commit();
     return model;
   }
 }

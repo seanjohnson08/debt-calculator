@@ -16,11 +16,12 @@ class App extends Component {
     super();
 
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
     };
 
     this.debts = Store.getAll(Debt);
 
+    this.clear= this.clear.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
@@ -38,6 +39,11 @@ class App extends Component {
     this.debts.push(debt);
   }
 
+  clear() {
+    this.debts = [];
+    localStorage.clear();
+  }
+
   render() {
     return (
       <div className="App">
@@ -45,6 +51,7 @@ class App extends Component {
           <div className="Debts">
             <DebtList debts={this.debts} />
             <button onClick={this.openModal}>Add Debt</button>
+            <button onClick={this.clear}>Clear Everything</button>
           </div>
           <div className="ResultsPane">
             <DebtPlot debts={this.debts} width={600} height={300} />

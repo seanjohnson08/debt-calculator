@@ -33,7 +33,6 @@ class DebtPlot extends Component {
         <Area type="monotone" dataKey={debt.id} name={debt.description} stackId="1" stroke={strokeColors[i]} fill={fillColors[i]}/>
       );
     });
-    debugger;
     return (
       <AreaChart width={this.props.width} height={this.props.height} data={this.data}>
         <XAxis dataKey="label" />
