@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import {DebtTypes} from "../models/Debt"
-import Debt from '../models/Debt';
+import Debt, {DebtTypes} from '../models/Debt';
 import Store from '../services/Store';
 
-
 class DebtDialog extends Component {
-
-  mixins: [LinkStateMixin];
 
   constructor() {
     super();
@@ -22,7 +18,7 @@ class DebtDialog extends Component {
     this.save = this.save.bind(this);
   }
 
-  init(){
+  init() {
     const debt = this.props.debtObj || Store.createModel(Debt);
     this.setState({debt: debt});
     this.typeChange(debt.type);
@@ -38,27 +34,27 @@ class DebtDialog extends Component {
       debt: this.state.debt
     });
 
-    if(name == "type"){
+    if (name == "type"){
       this.typeChange(value);
     }
   };
 
-  save(){
+  save() {
     this.props.onSave(this.state.debt);
   }
 
   /**
    * Displays form items based on the selected type
    */
-  typeChange(type){
+  typeChange(type) {
     switch(type){
-      case "mortgage":
-      case "car":
-      case "loan":
-        this.state.visibleInputs = ["lifetime","principle","balance","elapsedTime","rate","minimumMonthlyPayment"];
+      case 'mortgage':
+      case 'car':
+      case 'loan':
+        this.state.visibleInputs = ['lifetime','principle','balance','elapsedTime','rate','minimumMonthlyPayment'];
         break;
-      case "card":
-        this.state.visibleInputs = ["balance","rate","minimumMonthlyPayment"];
+      case 'card':
+        this.state.visibleInputs = ['balance','rate','minimumMonthlyPayment'];
         break;
       default:
         this.state.visibleInputs = [];
@@ -69,7 +65,12 @@ class DebtDialog extends Component {
   
   render() {
 
-    const typeToName = {"mortgage":"Home Mortgage","car":"Car Loan", "loan":"Personal Loan", "card":"Credit Card"};
+    const typeToName = {
+      mortgage: 'Home Mortgage',
+      car: 'Car Loan',
+      loan: 'Personal Loan',
+      card: 'Credit Card'
+    };
     
     const debtTypesOptions = DebtTypes.map((type) => {
       return (
@@ -140,8 +141,8 @@ class DebtDialog extends Component {
         isOpen={this.props.isOpen}
         onAfterOpen={this.init}
         aria={{
-          labelledby: "heading",
-          describedby: " full_description"
+          labelledby: 'heading',
+          describedby: 'full_description'
         }}
       >
         <form>
