@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Debt from './models/Debt';
 import DebtList from './components/DebtList';
-import DebtDialog from './components/DebtDialog.js';
+import DebtDialog from './components/DebtDialog';
+import DebtPlot from './components/DebtPlot';
 import './Reset.css';
 import './App.css';
 
@@ -47,8 +48,7 @@ class App extends Component {
             <button onClick={this.openModal}>Add Debt</button>
           </div>
           <div className="ResultsPane">
-            <div className="Graph">
-            </div>
+            <DebtPlot debts={this.debts} width={600} height={300} />
           </div>
         </main>
         <DebtDialog isOpen={this.state.modalIsOpen} onClose={this.closeModal}>This is a test</DebtDialog>
