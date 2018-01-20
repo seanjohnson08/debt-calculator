@@ -25,7 +25,7 @@ class DebtDialog extends Component {
     this.typeChange(debt.type);
   }
 
-  handleInputChange(event) {
+  handleInputChange(event) { 
     const target = event.target;
     let value = target.value;
     const name = target.name;
@@ -33,6 +33,10 @@ class DebtDialog extends Component {
     this.setState({
       debt: this.state.debt
     });
+
+    console.log(value);
+
+    // TODO: double check this formatting, see if it can be improved.
 
     switch(name){
       case 'type':
@@ -44,9 +48,11 @@ class DebtDialog extends Component {
       case 'minimumMonthlyPayment':
       const str = `${value}`;
       value = str.replace('.',"");
+      value = parseInt(value);
       break;
     }
 
+    console.log(value);
 
     this.state.debt[name] = value;
   };

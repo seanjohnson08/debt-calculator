@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   clear() {
-    this.debts = [];
+    this.setState({debts: []});
     localStorage.clear();
   }
 
