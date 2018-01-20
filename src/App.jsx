@@ -3,8 +3,8 @@ import Debt from './models/Debt';
 import DebtList from './components/DebtList.jsx';
 import DebtDialog from './components/DebtDialog.jsx';
 import DebtPlot from './components/DebtPlot.jsx';
-import './Reset.css';
-import './App.css';
+import './styles/Reset.css';
+import './styles/App.css';
 
 
 class App extends Component {
