@@ -52,18 +52,23 @@ class Model {
  * 
  * @param  {function} assertion - A function that accepts 1 argument (value) 
  * and returns true or false if the value is valid.
+ * @param {function} [translator] - Will attempt to convert values before storing
  * @return {function} - A function that returns a property descriptor.
  */
-function createValidator(assertion) {
+function createValidator(assertion, translator) {
   return (propertyName) => ({
     get() {
       return this._data[propertyName]
     },
     set(value) {
-      if (!assertion(value)) {
-        throw new Error(`Invalid value for ${propertyName}: ${value}`);
+      let _value = value;
+      if (translator) {
+        _value = translator(value);
       }
-      this._data[propertyName] = value;
+      if (!assertion(_value)) {
+        throw new Error(`Invalid value for ${propertyName}: ${_value}`);
+      }
+      this._data[propertyName] = _value;
     }
   });
 }
@@ -75,7 +80,15 @@ Object.assign(Model, {
    * Integer data type
    * @memberof Model
    */
-  Integer: createValidator((value) => !value || Number.isInteger(value) || !Number.isNaN(parseInt(value, 10)) ),
+  Integer: createValidator((value) => Number.isInteger(value), (value) => {
+    if (typeof value === 'string') {
+      if (!value.length) {
+        return 0;
+      }
+      return parseInt(value, 10);
+    }
+    return value;
+  }),
 
   /**
    * String data type

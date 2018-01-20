@@ -38,6 +38,22 @@ it('Validates Integers', () => {
   }).toThrow();
 });
 
+it('Converts strings to Integer when applicable', () => {
+  const testModelInstance = new TestModel();
+
+  testModelInstance.integer = '123';
+
+  expect(testModelInstance._data['integer']).toBe(123);
+
+  testModelInstance.integer = '';
+
+  expect(testModelInstance._data['integer']).toBe(0);
+
+  expect(() => {
+    testModelInstance.integer = 'sean';
+  }).toThrow();
+});
+
 it('Validates Strings', () => {
   const testModelInstance = new TestModel();
 

@@ -6,6 +6,7 @@ const modelTypes = {
 
 let _instance;
 
+const localStorage = window.localStorage || { getItem() {}, setItem() {} };
 /**
  * Store singleton
  * The store is responsible for managing, writing, and retrieving all data in our application.
