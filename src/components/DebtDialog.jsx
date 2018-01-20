@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import {DebtTypes} from "../models/Debt"
 import Debt from '../models/Debt';
+import Store from '../services/Store';
 
 
 class DebtDialog extends Component {
@@ -22,7 +23,7 @@ class DebtDialog extends Component {
   }
 
   init(){
-    const debt = this.props.debtObj || new Debt();
+    const debt = this.props.debtObj || Store.createModel(Debt);
     this.setState({debt: debt});
     this.typeChange(debt.type);
   }

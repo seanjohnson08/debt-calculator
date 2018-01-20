@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+
 import Debt from './models/Debt';
+import Store from './services/Store';
+
 import DebtList from './components/DebtList.jsx';
 import DebtDialog from './components/DebtDialog.jsx';
 import DebtPlot from './components/DebtPlot.jsx';
+
 import './styles/Reset.css';
 import './styles/App.css';
-
 
 class App extends Component {
 
@@ -15,17 +18,8 @@ class App extends Component {
     this.state = {
       modalIsOpen: false
     };
-    this.debts = [
-      new Debt({
-        id: 1,
-      }),
-      new Debt({
-        id: 2,
-        principle: 30000,
-        description: 'My Car',
-        lifetime: 10 * 12,
-      })
-    ];
+
+    this.debts = Store.getAll(Debt);
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
