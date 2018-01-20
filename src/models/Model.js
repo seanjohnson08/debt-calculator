@@ -75,7 +75,7 @@ Object.assign(Model, {
    * Integer data type
    * @memberof Model
    */
-  Integer: createValidator((value) => Number.isInteger(value)),
+  Integer: createValidator((value) => !value || Number.isInteger(value) || !Number.isNaN(parseInt(value)) ),
 
   /**
    * String data type

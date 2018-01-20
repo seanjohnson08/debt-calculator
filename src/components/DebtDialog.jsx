@@ -18,11 +18,12 @@ class DebtDialog extends Component {
     this.init = this.init.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.typeChange = this.typeChange.bind(this);
+    this.save = this.save.bind(this);
   }
 
   init(){
     const debt = this.props.debtObj || new Debt();
-    this.setState(debt.valueOf());
+    this.setState({debt: debt});
     this.typeChange(debt.type);
   }
 
@@ -30,15 +31,20 @@ class DebtDialog extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+    this.state.debt[name] = value;
 
     this.setState({
-      [name]: value
-    })
+      debt: this.state.debt
+    });
 
     if(name == "type"){
       this.typeChange(value);
     }
   };
+
+  save(){
+    this.props.onSave(this.state.debt);
+  }
 
   /**
    * Displays form items based on the selected type
@@ -56,7 +62,7 @@ class DebtDialog extends Component {
       default:
         this.state.visibleInputs = [];
     }
-  }minimumMonthlyPaymentElement
+  }
 
   
   
@@ -70,64 +76,62 @@ class DebtDialog extends Component {
       );
     });
 
-    let lifetimeElement;
-    if(this.state.visibleInputs.includes('lifetime')){
-      lifetimeElement = (
-        <li className="lifetime" visible={this.state.visibleInputs.includes('lifetime')}>
+    const inputs = [];
+    const visibleInputs = this.state.visibleInputs;
+    const debt = this.state.debt || this.state;
+
+    if (visibleInputs.includes('lifetime')){
+      inputs.push(
+        <li className="lifetime">
           <label for="lifetime">Lifetime</label>
-          <input type="number" name="lifetime" id="lifetime" min="0" max="1200" value={this.state.lifetime}  onChange={this.handleInputChange} />
+          <input type="number" name="lifetime" id="lifetime" min="0" max="1200" value={debt.lifetime}  onChange={this.handleInputChange} />
         </li>
-      )
+      );
     }
 
-    let principleElement;
-    if(this.state.visibleInputs.includes('principle')){
-      principleElement = (
+    if (visibleInputs.includes('principle')){
+      inputs.push(
         <li className="principle">
           <label for="principle">Principle</label>
-          <input type="number" name="principle" id="principle" min="0" value={this.state.principle}  onChange={this.handleInputChange} />
+          <input type="number" name="principle" id="principle" min="0" value={debt.principle}  onChange={this.handleInputChange} />
         </li>
-      )
+      );
     }
-minimumMonthlyPaymentElement
-    let balanceElement;
-    if(this.state.visibleInputs.includes('balance')){
-      balanceElement = (
+
+    if (visibleInputs.includes('balance')){
+      inputs.push(
         <li className="balance">
           <label for="balance">Balance</label>
-          <input type="number" name="balance" id="balance" min="0" value={this.state.balance}  onChange={this.handleInputChange} />
+          <input type="number" name="balance" id="balance" min="0" value={debt.balance}  onChange={this.handleInputChange} />
         </li>
-      )
+      );
     }
 
-    let elapsedTimeElement;
-    if(this.state.visibleInputs.includes('elapsedTime')){
-      elapsedTimeElement = (
+    if (visibleInputs.includes('elapsedTime')){
+      inputs.push(
         <li className="elapsedTime">
           <label for="elapsedTime">Elaped Time</label>
-          <input type="number" name="elapsedTime" id="elapsedTime" min="0" max="1200" value={this.state.elapsedTime}  onChange={this.handleInputChange} />
+          <input type="number" name="elapsedTime" id="elapsedTime" min="0" max="1200" value={debt.elapsedTime}  onChange={this.handleInputChange} />
         </li>
-      )
+      );
     }
 
-    let rateElement;
-    if(this.state.visibleInputs.includes('rate')){
-      rateElement = (
+    if (visibleInputs.includes('rate')){
+      inputs.push(
         <li className="rate">
           <label for="rate">Rate</label>
-          <input type="number" name="rate" id="rate" min="0" value={this.state.rate}  onChange={this.handleInputChange} />
+          <input type="number" name="rate" id="rate" min="0" value={debt.rate}  onChange={this.handleInputChange} />
         </li>
-      )
+      );
     }
 
-    let minimumMonthlyPaymentElement;
-    if(this.state.visibleInputs.includes('minimumMonthlyPayment')){
-      minimumMonthlyPaymentElement = (
+    if (visibleInputs.includes('minimumMonthlyPayment')){
+      inputs.push(
         <li className="minimumMonthlyPayment">
           <label for="minimumMonthlyPayment">Minimum Payment</label>
-          <input type="number" name="minimumMonthlyPayment" id="minimumMonthlyPayment" min="0" value={this.state.minimumMonthlyPayment}  onChange={this.handleInputChange} />
+          <input type="number" name="minimumMonthlyPayment" id="minimumMonthlyPayment" min="0" value={debt.minimumMonthlyPayment}  onChange={this.handleInputChange} />
         </li>
-      )
+      );
     }
 
     return (
@@ -147,15 +151,11 @@ minimumMonthlyPaymentElement
                 {debtTypesOptions}
               </select>
             </li>
-            {lifetimeElement}
-            {principleElement}
-            {balanceElement}
-            {elapsedTimeElement}
-            {rateElement}
-            {minimumMonthlyPaymentElement}
+            {inputs}
           </ul>
         </form>
         <button onClick={this.props.onClose}>close</button>
+        <button onClick={this.save}>save</button>
       </Modal>
     );
   }

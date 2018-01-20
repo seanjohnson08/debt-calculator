@@ -29,7 +29,7 @@ class App extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.save = this.save
+    this.saveDebt = this.saveDebt.bind(this);
   }
 
   openModal() {
@@ -38,6 +38,10 @@ class App extends Component {
 
   closeModal() {
     this.setState({modalIsOpen: false});
+  }
+
+  saveDebt(debt){
+    this.debts.push(debt);
   }
 
   render() {
@@ -56,7 +60,7 @@ class App extends Component {
           isOpen={this.state.modalIsOpen} 
           onClose={this.closeModal} 
           debtObj={this.state.curDebtObj} 
-          save={this.saveDebt}>This is a test</DebtDialog>
+          onSave={this.saveDebt}>This is a test</DebtDialog>
       </div>
     );
   }
