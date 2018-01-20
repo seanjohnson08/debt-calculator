@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Debt from './models/Debt';
-import DebtList from './components/DebtList';
-import DebtDialog from './components/DebtDialog';
-import DebtPlot from './components/DebtPlot';
+import DebtList from './components/DebtList.jsx';
+import DebtDialog from './components/DebtDialog.jsx';
+import DebtPlot from './components/DebtPlot.jsx';
 import './Reset.css';
 import './App.css';
 

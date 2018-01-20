@@ -156,7 +156,6 @@ minimumMonthlyPaymentElement
           </ul>
         </form>
         <button onClick={this.props.onClose}>close</button>
-        <button onClick={this.alertBalance}>alert</button>
       </Modal>
     );
   }
