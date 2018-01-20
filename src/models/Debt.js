@@ -18,6 +18,7 @@ class Debt extends Model {
 
   defaults() {
     return {
+      id: Math.random(), // TODO: create auto increment id
       description: 'Home Mortgage',
       type: 'mortgage', // enum
       lifetime: 30 * 12, // Months
