@@ -37,6 +37,7 @@ class App extends Component {
 
   saveDebt(debt){
     this.debts.push(debt);
+    Store.commit();
   }
 
   clear() {
