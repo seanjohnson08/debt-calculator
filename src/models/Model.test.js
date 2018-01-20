@@ -50,4 +50,15 @@ it('Validates Strings', () => {
   expect(() => {
     testModelInstance.string = 1.235;
   }).toThrow();
-})
+});
+
+it('valueOf returns internal state', () => {
+  const state = {
+    enum: 'enumValue',
+    integer: 123,
+    string: 'string'
+  };
+  const testModelInstance = new TestModel(state);
+
+  expect(testModelInstance.valueOf()).toEqual(state);
+});

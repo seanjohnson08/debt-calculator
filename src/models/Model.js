@@ -1,6 +1,6 @@
 /**
  * Creates a base class for all models to extend.
- * @class  Model
+ * @class Model
  * @example
  * class Person extends Model {
  *   properties() {
@@ -37,6 +37,10 @@ class Model {
 
   properties() {
     return {};
+  }
+
+  valueOf() {
+    return this._data;
   }
 }
 
