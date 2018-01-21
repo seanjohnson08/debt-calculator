@@ -25,6 +25,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build $SSHUSER@$SSHHOST
+  script: rsync -r --delete-after ./build/* $SSHUSER@$SSHHOST:debt-calculator
   on:
     branch: master
