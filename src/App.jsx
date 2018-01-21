@@ -33,14 +33,14 @@ class App extends Component {
   closeModal() {
     this.setState({ modalIsOpen: false });
   }
-  
-  saveDebt(debt){
+
+  saveDebt(debt) {
     this.state.debts.push(debt);
     Store.commit();
   }
 
   clear() {
-    this.setState({debts: []});
+    this.setState({ debts: [] });
     localStorage.clear();
   }
 

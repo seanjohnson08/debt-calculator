@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import Debt, { DebtTypes } from '../models/Debt';
 import Store from '../services/Store';
-import {formatCurrencyNumber} from '../helpers/Currency';
+import { formatCurrencyNumber } from '../helpers/Currency';
 
 class DebtDialog extends Component {
   constructor() {
@@ -24,35 +24,35 @@ class DebtDialog extends Component {
     this.typeChange(debt.type);
   }
 
-  handleInputChange(event) { 
+  handleInputChange(event) {
     const target = event.target;
     let value = target.value;
     const name = target.name;
-    
+
     this.setState({
       debt: this.state.debt
     });
 
     // TODO: double check this formatting, see if it can be improved.
 
-    switch(name){
+    switch (name) {
       case 'type':
         this.typeChange(value);
-      break;
+        break;
       case 'principle':
       case 'balance':
       case 'rate':
       case 'minimumMonthlyPayment':
-      const str = `${value}`;
-      value = str.replace('.',"");
-      value = parseInt(value);
-      break;
+        const str = `${value}`;
+        value = str.replace('.', '');
+        value = parseInt(value);
+        break;
     }
 
     console.log(value);
 
     this.state.debt[name] = value;
-  };
+  }
 
   save() {
     this.props.onSave(this.state.debt);
@@ -76,7 +76,12 @@ class DebtDialog extends Component {
         ];
         break;
       case 'card':
-        this.state.visibleInputs = ['balance', 'elapsedTime', 'rate', 'minimumMonthlyPayment'];
+        this.state.visibleInputs = [
+          'balance',
+          'elapsedTime',
+          'rate',
+          'minimumMonthlyPayment'
+        ];
         break;
       default:
         this.state.visibleInputs = [];
@@ -221,7 +226,13 @@ class DebtDialog extends Component {
             </li>
             <li>
               <label for="description">Description</label>
-              <input type="text" id="description" name="description" value={debt.description} onChange={this.handleInputChange} />
+              <input
+                type="text"
+                id="description"
+                name="description"
+                value={debt.description}
+                onChange={this.handleInputChange}
+              />
             </li>
             {inputs}
           </ul>

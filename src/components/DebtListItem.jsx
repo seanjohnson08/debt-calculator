@@ -5,8 +5,8 @@ class DebtList extends Component {
   render() {
     const debt = this.props.debt;
 
-    switch(debt.type){
-      case "card":
+    switch (debt.type) {
+      case 'card':
         return (
           <li className="DebtListItem">
             <h2>{debt.description}</h2>
@@ -18,7 +18,7 @@ class DebtList extends Component {
             </dl>
           </li>
         );
-      break;
+        break;
       default:
         return (
           <li className="DebtListItem">
@@ -30,8 +30,8 @@ class DebtList extends Component {
               <dd>{debt.lifetime} months</dd>
             </dl>
           </li>
-        )
-      break;
+        );
+        break;
     }
   }
 }
