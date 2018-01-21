@@ -13,12 +13,10 @@ script:
 
 env:
   global:
-    - secure: "veiwBxfgXUYbs8gpDuh+60NF0hyamsqK5QW8rkg3WPeHraOrtVBUST4fh38wA+P/nXj869Ns36JybSuyhz0xvLHyJm0AeXyK3S3Vu6VIdxJOdXrPGf4qudOyP9h9sNM4I5TFnwDZWF0BFTrvaU1LLECf/6XdOqOMPr5YL2YFbsWGrVPr5wdFgeMAkRLMWOuYu+kaDRgOwV7kv/yKz84/V/XRH7sXWbQF9C78yi9RZBDw8VHpgk72tHJlPZHo5TWe53kwEDyKPoRgNn3ZyKK60VsJnxuZE23CnEDoBShC8rl86/jMfGDPbD4QKChuwoPio1layQi1FriYh21wt/j8CDGfJp+iF75wNH1w7uofp0d53PPkcFTO2LnHMmeYbOAKaurzCiQcGTGSEoBLO/ymb5+VWZCjAn6q4CSczb9hXxT7m/F/L+CPg1IenF9MDWijzGL/GS9c63/wUlT3boQKptABlkyy0Kv+dPcfcEWoSxblrDTYeBes15+RP4QIw3CtjgXpT0U5eWh+yhgjR6WdxeispzkkhTFwgLiLEgJEJR4v74n5hvglO4YZ/XdM8MGh+VndiPZ5N1SykkmGJEGUe3DuYWQqhs2DNrryqbCdPLWMb3SveaJHn2M1lA46NWRQyf2FQGKKck+TekOqQkz6lrzhjURLnWFm6Q6nUbTjKnU="
-    - secure: "XxLZXFAvstsIBWF8sfjesCbXUcuBOLO/kgAVL5pVT1MmBQP7kIvDWAuD2lYSPHA3Uksq0ClzGbnD37taS0SOC7DPHjPLieUNz3TFtMue865+U5QBZO4e6Rs2t1MLE40r4Ey2AYqpk72xFeUWcYHUo/UG1G/ksK0E7t0r/erxxJ/TphXtFcYK/sN8uG9j7QuFet2pBtzALNhPL5GUyNzaKnN1JN2lGMqKU4JmnKIiaBbB8RcIKuaDhndhzyMjbbaCrXZoGk/6sodmt/bwAcBiUG/6K0bLqGP46jRMFTLr+40OAGp8ZMbL4y2CO0TnxoMCHcfq//CQ7B1wr3GYHwZOIJbUyQ+nb9g8ds+8RqS/kU6+nVWxvKxb8Q75/Uw6ZRHl+PGuZgiKpCmTEn9zCzzytLHbPX/+//9uuhWL3q+K9wEBP9OIYjd7BQ74b8RGc4zuE68VczYIUmscgwE3/L4myFs1yDVt1MgVa1qO6xsK4VRLbmbufegy12gJF6U1gwqSuBMwSumO1/blgZsvOBZBGn7/QCCWTRJin+f1rhRj5p/3nwhzBDSY4xBdETP46/dN5JkKKJWiRn+JmFCpLjRJD0oRYzN/bfDGulfa0eX7KTKRoOyS0EuZjpeNvUkB854yn0LGgppPUjdjC3a6fy/1LojnATU/UcrIyRUKkwYIs3M="
-
+    - secure: "YdO58MU82DCoK+974Fi4qU83oUUNUXCaDlEIm0ITnLzGf0T2EpY+vyplfIx3gzxLEWo5tqFNLScqAzpSCWpTrbIEnXfrL1ryIDjHcIL9DutXOguV7eFfOKFP5zaH1AJ4aBjADxR+sK8c2hQd3e9T2bo5f8nzOtYfans8pnQr0BBJx/5sv2fsTUyYuOoAORkXpUDXbQGjfMXIbWi4lES1CYJb0vQoZLvJHVP1BPfJoDhwpchbJADEkG5mEOv3WZ4/So/hMgDNMWnepWijUOCW+ldEJlblyOW/Yx87EzizutqEBMfK6MGgrJIPjg01Jase6kMZA5y0jLGriBK/WEZsUhEi9INVZvr3TA4i8tUTQFtztn2lKQhnlq0iUaxeRhdee7tVTqpKDRAGXTT3mHVeviChmf/3CjI4KNlD0nNYhyz5XZrMZOZ788tIQ+cbtI9TTcXakOVuDXDdS7VP1ae3jJMvne5vcGp6hrDZmQ637+Sc/Kzbb89NWuDWe1E3bFORhUECmxWJ+TgccV8GCg/7sG9rMHUfCE4ZR0tFzRh5lDa6n1ajZ2ooJHTAnldndFjujzLHwsh7wXoLUvEypycvBg0rl5hwEELTQOKUlbjsbRKQx7K22OjonMSl+WNFdNhcoO8LlKJfLz0tXOmQVmsxFxyAtwftfNgSUsgB7oXaWMM="
 
 addons:
-  ssh_known_hosts: $SSHHOST
+  ssh_known_hosts: dev.seanjohnson.pro
 
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_cf0bead91dd2_key -iv $encrypted_cf0bead91dd2_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -29,6 +27,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after ./build/* $SSHUSER@$SSHHOST:debt-calculator
+  script: rsync -r --delete-after ./build/* $SSHUSER@dev.seanjohnson.pro:debt-calculator
   on:
     branch: master
