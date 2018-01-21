@@ -1,7 +1,7 @@
 import Debt from '../models/Debt';
 
 const modelTypes = {
-  Debt: Debt
+  Debt
 };
 
 let _instance;
@@ -61,7 +61,7 @@ class Store {
    */
   commit() {
     const serializedStore = this.dataStore.map(model => {
-      return [model.constructor.name, model.valueOf()];
+      return [model.modelName, model.valueOf()];
     });
 
     localStorage.setItem('dataStore', JSON.stringify(serializedStore));

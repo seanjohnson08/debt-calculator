@@ -3,6 +3,10 @@ import Model from './Model';
 const DebtTypes = ['mortgage', 'car', 'loan', 'card'];
 
 class Debt extends Model {
+  get modelName() {
+    return 'Debt';
+  }
+
   properties() {
     return {
       description: Model.String,

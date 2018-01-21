@@ -30,6 +30,9 @@ class Model {
   }
 
   /* Overrideable methods */
+  get modelName() {
+    throw new Error('No model name defined');
+  }
 
   defaults() {
     return {};
