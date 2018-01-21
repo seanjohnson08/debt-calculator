@@ -13,7 +13,7 @@ env:
   - secure: CBhB9r6b04UCT4lrMDdTvG+hRaKqe8hehFAvHPfruypgA7/iG6QCtr6spcot7OTTBqssLeT0UfcxQKzs4phuVM/MlPCzHJlumXuBWEHiproe53yXvfsM+nbDUxLsd/FDL2uIzxIFPMJyB1oFM17SdX8aD0pX5zp7oS+uCgz6cpgyese9taRfUVreoJ9CBZNOYiNMe+IBxUkCQI2EC5ybWdtxMBKZ1haL8wdRh8VJYn2quPYb5GPGB1qqToaLNIXIoYyYY5PY7AaKXqhoaaJpjJO6IrqCKw0JNpvlP/dmWDJQ45w6PD08wxfqdwm4HJ3MDu2eApvzh9SQVht1yHVxUBVTcNu87ZvQ/1lKEGt+iFsePtKFxgOESJbd0SMVWxfuovPx84Rw4C5KRDV1zGf3RxDKp4y0IGWze5BxhPHvwu1lAv+26YbvKrV9v7REfPRfq9lGOQXWvHO6psLBN1XWqKle4MYxpUosFJ/rXaoCfGE5PbQc8B8Fb+yYNdGGitADn3a8aNqf6Mftds5R8oCSiflXX+WdYrjAAcG2yQr/FH/Ph0wBerg5z6wVKUG4v1DIe+0HZeWh+vckPvsp8r7hUzDxZlfJGzW54lJj/779X5mLulTMndL1w/GeWFOwCGk76MpJvfVsO/SXB1vK/EFaa3EuV3UeAtP5oqgJekFw9lc=
 
 before_deploy:
-  - openssl aes-256-cbc -K $encrypted_cf0bead91dd2_key -iv $encrypted_cf0bead91dd2_iv -in deploy_rsa.enc -out deploy_rsa -d
+  - openssl aes-256-cbc -K $encrypted_cf0bead91dd2_key -iv $encrypted_cf0bead91dd2_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/deploy_rsa
   - ssh-add /tmp/deploy_rsa
