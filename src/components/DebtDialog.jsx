@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import Debt, { DebtTypes } from '../models/Debt';
 import Store from '../services/Store';
+import {formatCurrencyNumber} from '../helpers/Currency';
 
 class DebtDialog extends Component {
   constructor() {
@@ -23,20 +24,35 @@ class DebtDialog extends Component {
     this.typeChange(debt.type);
   }
 
-  handleInputChange(event) {
+  handleInputChange(event) { 
     const target = event.target;
-    const value = target.value;
+    let value = target.value;
     const name = target.name;
-    this.state.debt[name] = value;
-
+    
     this.setState({
       debt: this.state.debt
     });
 
-    if (name == 'type') {
-      this.typeChange(value);
+    // TODO: double check this formatting, see if it can be improved.
+
+    switch(name){
+      case 'type':
+        this.typeChange(value);
+      break;
+      case 'principle':
+      case 'balance':
+      case 'rate':
+      case 'minimumMonthlyPayment':
+      const str = `${value}`;
+      value = str.replace('.',"");
+      value = parseInt(value);
+      break;
     }
-  }
+
+    console.log(value);
+
+    this.state.debt[name] = value;
+  };
 
   save() {
     this.props.onSave(this.state.debt);
@@ -60,7 +76,7 @@ class DebtDialog extends Component {
         ];
         break;
       case 'card':
-        this.state.visibleInputs = ['balance', 'rate', 'minimumMonthlyPayment'];
+        this.state.visibleInputs = ['balance', 'elapsedTime', 'rate', 'minimumMonthlyPayment'];
         break;
       default:
         this.state.visibleInputs = [];
@@ -109,7 +125,7 @@ class DebtDialog extends Component {
             name="principle"
             id="principle"
             min="0"
-            value={debt.principle}
+            value={formatCurrencyNumber(debt.principle)}
             onChange={this.handleInputChange}
           />
         </li>
@@ -125,7 +141,7 @@ class DebtDialog extends Component {
             name="balance"
             id="balance"
             min="0"
-            value={debt.balance}
+            value={formatCurrencyNumber(debt.balance)}
             onChange={this.handleInputChange}
           />
         </li>
@@ -174,7 +190,7 @@ class DebtDialog extends Component {
             name="minimumMonthlyPayment"
             id="minimumMonthlyPayment"
             min="0"
-            value={debt.minimumMonthlyPayment}
+            value={formatCurrencyNumber(debt.minimumMonthlyPayment)}
             onChange={this.handleInputChange}
           />
         </li>
@@ -197,11 +213,15 @@ class DebtDialog extends Component {
               <select
                 name="type"
                 id="type"
-                value={this.state.type}
+                value={debt.type}
                 onChange={this.handleInputChange}
               >
                 {debtTypesOptions}
               </select>
+            </li>
+            <li>
+              <label for="description">Description</label>
+              <input type="text" id="description" name="description" value={debt.description} onChange={this.handleInputChange} />
             </li>
             {inputs}
           </ul>
