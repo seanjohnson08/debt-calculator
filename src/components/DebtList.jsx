@@ -7,7 +7,7 @@ class DebtList extends Component {
       return <DebtListItem debt={debt} key={debt.id} />;
     });
 
-    return <ul className="DebtList">{DebtListItems}</ul>;
+    return <ul className="list-group">{DebtListItems}</ul>;
   }
 }
 

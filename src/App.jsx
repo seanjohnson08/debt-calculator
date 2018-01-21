@@ -7,9 +7,6 @@ import DebtList from './components/DebtList.jsx';
 import DebtDialog from './components/DebtDialog.jsx';
 import DebtPlot from './components/DebtPlot.jsx';
 
-import './styles/Reset.css';
-import './styles/App.css';
-
 class App extends Component {
   constructor() {
     super();
@@ -47,14 +44,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <main className="Calculator">
-          <div className="Debts">
+        <main className="row">
+          <div className="col-md-4">
             <DebtList debts={this.state.debts} />
             <button onClick={this.openModal}>Add Debt</button>
             <button onClick={this.clear}>Clear Everything</button>
           </div>
-          <div className="ResultsPane">
-            <DebtPlot debts={this.state.debts} width={600} height={300} />
+          <div className="col-md-8">
+            <div className="panel panel-default">
+              <div className="panel-heading">Projections</div>
+              <div className="panel-body">
+                <DebtPlot debts={this.state.debts} width={600} height={300} />
+              </div>
+            </div>
           </div>
         </main>
         <DebtDialog

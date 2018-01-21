@@ -47,6 +47,7 @@ class DebtPlot extends Component {
         width={this.props.width}
         height={this.props.height}
         data={this.data}
+        className={this.props.className}
       >
         <XAxis dataKey="label" />
         <YAxis />

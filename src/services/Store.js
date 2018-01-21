@@ -48,7 +48,8 @@ class Store {
           id: 2,
           principle: 30000,
           description: 'My Car',
-          lifetime: 10 * 12
+          lifetime: 10 * 12,
+          type: 'car'
         })
       ];
 
