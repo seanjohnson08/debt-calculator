@@ -1,16 +1,20 @@
 language: node_js
+
 node_js:
-- 6
+  - 6
+
 cache:
   directories:
   - node_modules
+
 script:
-- npm run build
-- npm test
+  - npm run build
+  - npm test
+
 env:
   global:
-  - secure: Mp1NvTczF2oUbfF4xbhRhZIEsOOYviAqnE+FDpaMd/861tfiOso7YJWLGliXyhCioqYrXjkxLUgTP7gXk6idyDv7awMsFeDsJdGqym4KDbbTj0GDoSuR0MHeXwohMKzXtaMuX4mIHoAyFwPV2FaRJo9RCPj8jiWkGGPnyc4gBOPp21xwf605zGxzSGW3HsF0sDDJjlEU3TVrB8VD4qVRBMU9oilY6IWUYTQG3EsCl2MUlxdVmH8H75sHXG5MColjWQr0FTVg/iv0v6amE8Bvvw9zG+6Kikw/iFvGcfV1ylM/92jKwQ96rIgy93PQTZB68gfqTAclgV3HXfk80lpwFhYkuFEaiEAX/txPaSg8/Y3NvNtzA9KTiMH1C0HBHlmUgH0uFbUrZHcGObPN4Do0cHGKYhjzGriKgV1DyHBxVWVebwBXdISdHib5/qPzLm0/SwtHjuxZU8nDpzQB3eej8/tkaZUWb1cjfzF5+yuwlE0a1xtIbJLC+w60sQzWsaK/jYQMmZKtLPa2pQ+ZdB3znqIsaL/t/7TwyabyJT4q3qDBOgVBiRFVMGJ9c51pK5no50l+qd7QzqvspT48dBmn6IhHPe1ghpRCzNSGxvAZCOT4N1WcKWVIF/2piHeL+O8/4fpP7vqNJXzphCea4S7/ULaBH+JV9fjvUhc+PKO9RdQ=
-  - secure: CBhB9r6b04UCT4lrMDdTvG+hRaKqe8hehFAvHPfruypgA7/iG6QCtr6spcot7OTTBqssLeT0UfcxQKzs4phuVM/MlPCzHJlumXuBWEHiproe53yXvfsM+nbDUxLsd/FDL2uIzxIFPMJyB1oFM17SdX8aD0pX5zp7oS+uCgz6cpgyese9taRfUVreoJ9CBZNOYiNMe+IBxUkCQI2EC5ybWdtxMBKZ1haL8wdRh8VJYn2quPYb5GPGB1qqToaLNIXIoYyYY5PY7AaKXqhoaaJpjJO6IrqCKw0JNpvlP/dmWDJQ45w6PD08wxfqdwm4HJ3MDu2eApvzh9SQVht1yHVxUBVTcNu87ZvQ/1lKEGt+iFsePtKFxgOESJbd0SMVWxfuovPx84Rw4C5KRDV1zGf3RxDKp4y0IGWze5BxhPHvwu1lAv+26YbvKrV9v7REfPRfq9lGOQXWvHO6psLBN1XWqKle4MYxpUosFJ/rXaoCfGE5PbQc8B8Fb+yYNdGGitADn3a8aNqf6Mftds5R8oCSiflXX+WdYrjAAcG2yQr/FH/Ph0wBerg5z6wVKUG4v1DIe+0HZeWh+vckPvsp8r7hUzDxZlfJGzW54lJj/779X5mLulTMndL1w/GeWFOwCGk76MpJvfVsO/SXB1vK/EFaa3EuV3UeAtP5oqgJekFw9lc=
+    - secure: "veiwBxfgXUYbs8gpDuh+60NF0hyamsqK5QW8rkg3WPeHraOrtVBUST4fh38wA+P/nXj869Ns36JybSuyhz0xvLHyJm0AeXyK3S3Vu6VIdxJOdXrPGf4qudOyP9h9sNM4I5TFnwDZWF0BFTrvaU1LLECf/6XdOqOMPr5YL2YFbsWGrVPr5wdFgeMAkRLMWOuYu+kaDRgOwV7kv/yKz84/V/XRH7sXWbQF9C78yi9RZBDw8VHpgk72tHJlPZHo5TWe53kwEDyKPoRgNn3ZyKK60VsJnxuZE23CnEDoBShC8rl86/jMfGDPbD4QKChuwoPio1layQi1FriYh21wt/j8CDGfJp+iF75wNH1w7uofp0d53PPkcFTO2LnHMmeYbOAKaurzCiQcGTGSEoBLO/ymb5+VWZCjAn6q4CSczb9hXxT7m/F/L+CPg1IenF9MDWijzGL/GS9c63/wUlT3boQKptABlkyy0Kv+dPcfcEWoSxblrDTYeBes15+RP4QIw3CtjgXpT0U5eWh+yhgjR6WdxeispzkkhTFwgLiLEgJEJR4v74n5hvglO4YZ/XdM8MGh+VndiPZ5N1SykkmGJEGUe3DuYWQqhs2DNrryqbCdPLWMb3SveaJHn2M1lA46NWRQyf2FQGKKck+TekOqQkz6lrzhjURLnWFm6Q6nUbTjKnU="
+    - secure: "XxLZXFAvstsIBWF8sfjesCbXUcuBOLO/kgAVL5pVT1MmBQP7kIvDWAuD2lYSPHA3Uksq0ClzGbnD37taS0SOC7DPHjPLieUNz3TFtMue865+U5QBZO4e6Rs2t1MLE40r4Ey2AYqpk72xFeUWcYHUo/UG1G/ksK0E7t0r/erxxJ/TphXtFcYK/sN8uG9j7QuFet2pBtzALNhPL5GUyNzaKnN1JN2lGMqKU4JmnKIiaBbB8RcIKuaDhndhzyMjbbaCrXZoGk/6sodmt/bwAcBiUG/6K0bLqGP46jRMFTLr+40OAGp8ZMbL4y2CO0TnxoMCHcfq//CQ7B1wr3GYHwZOIJbUyQ+nb9g8ds+8RqS/kU6+nVWxvKxb8Q75/Uw6ZRHl+PGuZgiKpCmTEn9zCzzytLHbPX/+//9uuhWL3q+K9wEBP9OIYjd7BQ74b8RGc4zuE68VczYIUmscgwE3/L4myFs1yDVt1MgVa1qO6xsK4VRLbmbufegy12gJF6U1gwqSuBMwSumO1/blgZsvOBZBGn7/QCCWTRJin+f1rhRj5p/3nwhzBDSY4xBdETP46/dN5JkKKJWiRn+JmFCpLjRJD0oRYzN/bfDGulfa0eX7KTKRoOyS0EuZjpeNvUkB854yn0LGgppPUjdjC3a6fy/1LojnATU/UcrIyRUKkwYIs3M="
 
 before_deploy:
   - openssl aes-256-cbc -K $encrypted_cf0bead91dd2_key -iv $encrypted_cf0bead91dd2_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -21,6 +25,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build seandev@dev.seanjohnson.pro:debt-calculator
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build $SSHUSER@$SSHHOST
   on:
     branch: master
