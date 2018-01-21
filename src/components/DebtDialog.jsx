@@ -28,10 +28,7 @@ class DebtDialog extends Component {
     const target = event.target;
     let value = target.value;
     const name = target.name;
-
-    this.setState({
-      debt: this.state.debt
-    });
+    const debt = this.state.debt;
 
     // TODO: double check this formatting, see if it can be improved.
 
@@ -44,14 +41,18 @@ class DebtDialog extends Component {
       case 'rate':
       case 'minimumMonthlyPayment':
         const str = `${value}`;
-        value = str.replace('.', '');
-        value = parseInt(value);
+        value = str.replace(/\./g, '');
+        value = parseInt(value, 10);
+        break;
+      default:
         break;
     }
 
-    console.log(value);
+    debt[name] = value;
 
-    this.state.debt[name] = value;
+    this.setState({
+      debt
+    });
   }
 
   save() {
@@ -66,25 +67,32 @@ class DebtDialog extends Component {
       case 'mortgage':
       case 'car':
       case 'loan':
-        this.state.visibleInputs = [
-          'lifetime',
-          'principle',
-          'balance',
-          'elapsedTime',
-          'rate',
-          'minimumMonthlyPayment'
-        ];
+        this.setState({
+          visibleInputs: [
+            'lifetime',
+            'principle',
+            'balance',
+            'elapsedTime',
+            'rate',
+            'minimumMonthlyPayment'
+          ]
+        });
         break;
       case 'card':
-        this.state.visibleInputs = [
-          'balance',
-          'elapsedTime',
-          'rate',
-          'minimumMonthlyPayment'
-        ];
+        this.setState({
+          visibleInputs: [
+            'balance',
+            'elapsedTime',
+            'rate',
+            'minimumMonthlyPayment'
+          ]
+        });
         break;
       default:
-        this.state.visibleInputs = [];
+        this.setState({
+          visibleInputs: []
+        });
+        break;
     }
   }
 

@@ -18,7 +18,6 @@ class DebtList extends Component {
             </dl>
           </li>
         );
-        break;
       default:
         return (
           <li className="DebtListItem">
@@ -31,7 +30,6 @@ class DebtList extends Component {
             </dl>
           </li>
         );
-        break;
     }
   }
 }
