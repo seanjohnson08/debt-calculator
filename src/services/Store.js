@@ -1,7 +1,7 @@
 import Debt from '../models/Debt';
 
 const modelTypes = {
-  'Debt': Debt
+  Debt: Debt
 };
 
 let _instance;
@@ -31,22 +31,24 @@ class Store {
     const dataFromLocalStorage = localStorage.getItem('dataStore');
 
     if (dataFromLocalStorage) {
-      this.dataStore = JSON.parse(dataFromLocalStorage).map(([modelClass, data]) => {
-        return new modelTypes[modelClass](data);
-      });
+      this.dataStore = JSON.parse(dataFromLocalStorage).map(
+        ([modelClass, data]) => {
+          return new modelTypes[modelClass](data);
+        }
+      );
     }
 
     /** Temporarily add debts to the store for testing */
     if (!this.dataStore) {
       this.dataStore = [
         new Debt({
-          id: 1,
+          id: 1
         }),
         new Debt({
           id: 2,
           principle: 30000,
           description: 'My Car',
-          lifetime: 10 * 12,
+          lifetime: 10 * 12
         })
       ];
 
@@ -58,7 +60,7 @@ class Store {
    * Commits the current data store to persistent storage
    */
   commit() {
-    const serializedStore = this.dataStore.map((model) => {
+    const serializedStore = this.dataStore.map(model => {
       return [model.constructor.name, model.valueOf()];
     });
 
@@ -72,7 +74,7 @@ class Store {
    */
   getAll(modelClass) {
     // Not performant for large data sets, but our app is tiny so I don't care
-    return this.dataStore.filter((model) => model instanceof modelClass);
+    return this.dataStore.filter(model => model instanceof modelClass);
   }
 
   /**

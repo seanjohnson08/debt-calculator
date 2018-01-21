@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import Debt, {DebtTypes} from '../models/Debt';
+import Debt, { DebtTypes } from '../models/Debt';
 import Store from '../services/Store';
 import {formatCurrencyNumber} from '../helpers/Currency';
 
 class DebtDialog extends Component {
-
   constructor() {
     super();
 
     this.state = {
-      'visibleInputs': []
+      visibleInputs: []
     };
 
     this.init = this.init.bind(this);
@@ -21,7 +20,7 @@ class DebtDialog extends Component {
 
   init() {
     const debt = this.props.debtObj || Store.createModel(Debt);
-    this.setState({debt: debt});
+    this.setState({ debt: debt });
     this.typeChange(debt.type);
   }
 
@@ -33,8 +32,6 @@ class DebtDialog extends Component {
     this.setState({
       debt: this.state.debt
     });
-
-    console.log(value);
 
     // TODO: double check this formatting, see if it can be improved.
 
@@ -65,91 +62,137 @@ class DebtDialog extends Component {
    * Displays form items based on the selected type
    */
   typeChange(type) {
-    switch(type){
+    switch (type) {
       case 'mortgage':
       case 'car':
       case 'loan':
-        this.state.visibleInputs = ['lifetime','principle','balance','elapsedTime','rate','minimumMonthlyPayment'];
+        this.state.visibleInputs = [
+          'lifetime',
+          'principle',
+          'balance',
+          'elapsedTime',
+          'rate',
+          'minimumMonthlyPayment'
+        ];
         break;
       case 'card':
-        this.state.visibleInputs = ['balance','elapsedTime','rate','minimumMonthlyPayment'];
+        this.state.visibleInputs = ['balance', 'elapsedTime', 'rate', 'minimumMonthlyPayment'];
         break;
       default:
         this.state.visibleInputs = [];
     }
   }
 
-  
-  
   render() {
-
     const typeToName = {
       mortgage: 'Home Mortgage',
       car: 'Car Loan',
       loan: 'Personal Loan',
       card: 'Credit Card'
     };
-    
-    const debtTypesOptions = DebtTypes.map((type) => {
-      return (
-        <option value={type}>{typeToName[type]||type}</option>
-      );
+
+    const debtTypesOptions = DebtTypes.map(type => {
+      return <option value={type}>{typeToName[type] || type}</option>;
     });
 
     const inputs = [];
     const visibleInputs = this.state.visibleInputs;
     const debt = this.state.debt || this.state;
 
-    if (visibleInputs.includes('lifetime')){
+    if (visibleInputs.includes('lifetime')) {
       inputs.push(
         <li className="lifetime">
           <label for="lifetime">Lifetime</label>
-          <input type="number" name="lifetime" id="lifetime" min="0" max="1200" value={debt.lifetime}  onChange={this.handleInputChange} />
+          <input
+            type="number"
+            name="lifetime"
+            id="lifetime"
+            min="0"
+            max="1200"
+            value={debt.lifetime}
+            onChange={this.handleInputChange}
+          />
         </li>
       );
     }
 
-    if (visibleInputs.includes('principle')){
+    if (visibleInputs.includes('principle')) {
       inputs.push(
         <li className="principle">
           <label for="principle">Principle</label>
-          <input type="number" name="principle" id="principle" min="0" value={formatCurrencyNumber(debt.principle)}  onChange={this.handleInputChange} />
+          <input
+            type="number"
+            name="principle"
+            id="principle"
+            min="0"
+            value={formatCurrencyNumber(debt.principle)}
+            onChange={this.handleInputChange}
+          />
         </li>
       );
     }
 
-    if (visibleInputs.includes('balance')){
+    if (visibleInputs.includes('balance')) {
       inputs.push(
         <li className="balance">
           <label for="balance">Balance</label>
-          <input type="number" name="balance" id="balance" min="0" value={formatCurrencyNumber(debt.balance)}  onChange={this.handleInputChange} />
+          <input
+            type="number"
+            name="balance"
+            id="balance"
+            min="0"
+            value={formatCurrencyNumber(debt.balance)}
+            onChange={this.handleInputChange}
+          />
         </li>
       );
     }
 
-    if (visibleInputs.includes('elapsedTime')){
+    if (visibleInputs.includes('elapsedTime')) {
       inputs.push(
         <li className="elapsedTime">
           <label for="elapsedTime">Elaped Time</label>
-          <input type="number" name="elapsedTime" id="elapsedTime" min="0" max="1200" value={debt.elapsedTime}  onChange={this.handleInputChange} />
+          <input
+            type="number"
+            name="elapsedTime"
+            id="elapsedTime"
+            min="0"
+            max="1200"
+            value={debt.elapsedTime}
+            onChange={this.handleInputChange}
+          />
         </li>
       );
     }
 
-    if (visibleInputs.includes('rate')){
+    if (visibleInputs.includes('rate')) {
       inputs.push(
         <li className="rate">
           <label for="rate">Rate</label>
-          <input type="number" name="rate" id="rate" min="0" value={debt.rate}  onChange={this.handleInputChange} />
+          <input
+            type="number"
+            name="rate"
+            id="rate"
+            min="0"
+            value={debt.rate}
+            onChange={this.handleInputChange}
+          />
         </li>
       );
     }
 
-    if (visibleInputs.includes('minimumMonthlyPayment')){
+    if (visibleInputs.includes('minimumMonthlyPayment')) {
       inputs.push(
         <li className="minimumMonthlyPayment">
           <label for="minimumMonthlyPayment">Minimum Payment</label>
-          <input type="number" name="minimumMonthlyPayment" id="minimumMonthlyPayment" min="0" value={formatCurrencyNumber(debt.minimumMonthlyPayment)}  onChange={this.handleInputChange} />
+          <input
+            type="number"
+            name="minimumMonthlyPayment"
+            id="minimumMonthlyPayment"
+            min="0"
+            value={formatCurrencyNumber(debt.minimumMonthlyPayment)}
+            onChange={this.handleInputChange}
+          />
         </li>
       );
     }
@@ -167,7 +210,12 @@ class DebtDialog extends Component {
           <ul>
             <li className="type">
               <label for="type">Type</label>
-              <select name="type" id="type" value={debt.type} onChange={this.handleInputChange}>
+              <select
+                name="type"
+                id="type"
+                value={debt.type}
+                onChange={this.handleInputChange}
+              >
                 {debtTypesOptions}
               </select>
             </li>
@@ -183,7 +231,6 @@ class DebtDialog extends Component {
       </Modal>
     );
   }
-  
 }
 
 export default DebtDialog;

@@ -1,7 +1,6 @@
 
 
 function formatBaseCurrency(numberValue){
-
 	const amount = `${numberValue}`; // Convert to string
   	const dollars = amount.slice(0, -2)
   	const cents = amount.slice(-2);
@@ -15,7 +14,6 @@ function formatBaseCurrency(numberValue){
  * @return {String} The formatted result
  */
 function formatCurrency(numberValue) {
-
 	const formatted = formatBaseCurrency(numberValue)
 		// Add commas
 		.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
@@ -24,9 +22,8 @@ function formatCurrency(numberValue) {
 }
 
 export function formatCurrencyNumber(numberValue){
-
 	const formatted = formatBaseCurrency(numberValue);
-	if(numberValue < 100){
+	if (numberValue < 100){
 		return '0' + formatted;
 	} else {
 		return formatted;
