@@ -7,12 +7,12 @@
 
 function formatCurrency(numberValue) {
   const amount = `${numberValue}`; // Convert to string
-  const dollars = amount.slice(0, -2)
+  const dollars = amount
+    .slice(0, -2)
     // Add commas
-    .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 
   const cents = amount.slice(-2);
-
 
   return `$${dollars}.${cents}`;
 }

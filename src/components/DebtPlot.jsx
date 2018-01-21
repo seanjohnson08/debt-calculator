@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Area, AreaChart,
+  Area,
+  AreaChart,
   CartesianGrid,
   Tooltip,
-  XAxis, YAxis,
+  XAxis,
+  YAxis
 } from 'recharts';
 
 class DebtPlot extends Component {
@@ -11,12 +13,12 @@ class DebtPlot extends Component {
     this.data = [];
     for (let i = 0; i <= 10; i++) {
       const projectedPrinciples = this.props.debts.reduce((accum, debt) => {
-        accum[debt.id] = Math.round(debt.principle / 100 * (1 - .1 * i));
+        accum[debt.id] = Math.round(debt.principle / 100 * (1 - 0.1 * i));
         return accum;
       }, {});
 
       const dataPoint = Object.assign(projectedPrinciples, {
-        label: `Month ${i}`,
+        label: `Month ${i}`
       });
 
       this.data.push(dataPoint);
@@ -30,15 +32,26 @@ class DebtPlot extends Component {
     const strokeColors = ['#8884d8', '#82ca9d', '#ffc658'];
     const areas = this.props.debts.map((debt, i) => {
       return (
-        <Area type="monotone" dataKey={debt.id} name={debt.description} stackId="1" stroke={strokeColors[i]} fill={fillColors[i]}/>
+        <Area
+          type="monotone"
+          dataKey={debt.id}
+          name={debt.description}
+          stackId="1"
+          stroke={strokeColors[i]}
+          fill={fillColors[i]}
+        />
       );
     });
     return (
-      <AreaChart width={this.props.width} height={this.props.height} data={this.data}>
+      <AreaChart
+        width={this.props.width}
+        height={this.props.height}
+        data={this.data}
+      >
         <XAxis dataKey="label" />
         <YAxis />
         <Tooltip />
-        <CartesianGrid strokeDasharray="3 3"/>
+        <CartesianGrid strokeDasharray="3 3" />
         {areas}
       </AreaChart>
     );

@@ -9,8 +9,10 @@ class DebtList extends Component {
       <li className="DebtListItem">
         <h2>{debt.description}</h2>
         <dl>
-          <dt>Total Principle</dt><dd>{Currency(debt.principle)}</dd>
-          <dt>Lifetime</dt><dd>{debt.lifetime} months</dd>
+          <dt>Total Principle</dt>
+          <dd>{Currency(debt.principle)}</dd>
+          <dt>Lifetime</dt>
+          <dd>{debt.lifetime} months</dd>
         </dl>
       </li>
     );

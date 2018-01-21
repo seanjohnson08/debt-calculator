@@ -1,6 +1,6 @@
 import Model from './Model';
 
-const DebtTypes = [ 'mortgage', 'car', 'loan', 'card'];
+const DebtTypes = ['mortgage', 'car', 'loan', 'card'];
 
 class Debt extends Model {
   properties() {
@@ -12,7 +12,7 @@ class Debt extends Model {
       balance: Model.Integer,
       elapsedTime: Model.Integer,
       rate: Model.Integer,
-      minimumMonthlyPayment: Model.Integer,
+      minimumMonthlyPayment: Model.Integer
     };
   }
 

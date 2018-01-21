@@ -11,31 +11,30 @@ import './styles/Reset.css';
 import './styles/App.css';
 
 class App extends Component {
-
   constructor() {
     super();
 
     this.state = {
-      modalIsOpen: false,
+      modalIsOpen: false
     };
 
     this.debts = Store.getAll(Debt);
 
-    this.clear= this.clear.bind(this);
+    this.clear = this.clear.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
   }
 
   openModal() {
-    this.setState({modalIsOpen: true});
+    this.setState({ modalIsOpen: true });
   }
 
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.setState({ modalIsOpen: false });
   }
 
-  saveDebt(debt){
+  saveDebt(debt) {
     this.debts.push(debt);
     Store.commit();
   }
@@ -58,11 +57,14 @@ class App extends Component {
             <DebtPlot debts={this.debts} width={600} height={300} />
           </div>
         </main>
-        <DebtDialog 
-          isOpen={this.state.modalIsOpen} 
-          onClose={this.closeModal} 
-          debtObj={this.state.curDebtObj} 
-          onSave={this.saveDebt}>This is a test</DebtDialog>
+        <DebtDialog
+          isOpen={this.state.modalIsOpen}
+          onClose={this.closeModal}
+          debtObj={this.state.curDebtObj}
+          onSave={this.saveDebt}
+        >
+          This is a test
+        </DebtDialog>
       </div>
     );
   }
