@@ -29,37 +29,40 @@ class Store {
    */
   load() {
     const dataFromLocalStorage = localStorage.getItem('dataStore');
+    let data;
 
-    if (dataFromLocalStorage) {
-      this.dataStore = JSON.parse(dataFromLocalStorage).map(
-        ([modelClass, data]) => {
-          const model = new modelTypes[modelClass](data);
-
-          model.store = this;
-          // The model is clean since it is coming from the source of truth
-          model.isDirty = false;
-          return model;
-        }
-      );
-    }
-
-    /** Temporarily add debts to the store for testing */
-    if (!this.dataStore) {
-      this.dataStore = [
-        new Debt({
-          id: 1
-        }),
-        new Debt({
-          id: 2,
-          principle: 30000,
-          description: 'My Car',
-          lifetime: 10 * 12,
-          type: 'car'
-        })
+    if (!dataFromLocalStorage) {
+      /** Temporarily add debts to the store for testing */
+      data = [
+        [
+          'Debt',
+          {
+            id: 1
+          }
+        ],
+        [
+          'Debt',
+          {
+            id: 2,
+            principle: 30000,
+            description: 'My Car',
+            lifetime: 10 * 12,
+            type: 'car'
+          }
+        ]
       ];
-
-      this.commit();
+    } else {
+      data = JSON.parse(dataFromLocalStorage);
     }
+
+    this.dataStore = data.map(([modelClass, data]) => {
+      const model = new modelTypes[modelClass](data);
+
+      model.store = this;
+      // The model is clean since it is coming from the source of truth
+      model.isDirty = false;
+      return model;
+    });
   }
 
   /**
