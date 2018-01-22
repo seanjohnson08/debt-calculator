@@ -50,10 +50,16 @@ class Model {
 
   save() {
     this.isDirty = false;
-    import('../services/Store').then(({ default: Store }) => {
-      debugger;
-      Store.commit();
-    });
+    if (this.store) {
+      this.store.commit();
+    }
+  }
+
+  destroy() {
+    this.destroyed = true;
+    if (this.store) {
+      this.store.destroyModel(this);
+    }
   }
 
   valueOf() {

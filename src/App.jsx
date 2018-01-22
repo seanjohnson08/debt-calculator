@@ -37,7 +37,10 @@ class App extends Component {
   }
 
   clear() {
+    this.state.debts.forEach(model => model.destroy());
     this.setState({ debts: [] });
+
+    //TODO: Remove this localstorage clean from here
     localStorage.clear();
   }
 

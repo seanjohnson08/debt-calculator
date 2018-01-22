@@ -35,6 +35,7 @@ class Store {
         ([modelClass, data]) => {
           const model = new modelTypes[modelClass](data);
 
+          model.store = this;
           // The model is clean since it is coming from the source of truth
           model.dirty = false;
           return model;
@@ -44,7 +45,6 @@ class Store {
 
     /** Temporarily add debts to the store for testing */
     if (!this.dataStore) {
-      debugger;
       this.dataStore = [
         new Debt({
           id: 1
@@ -91,8 +91,19 @@ class Store {
    */
   createModel(modelClass, data = {}) {
     const model = new modelClass(data);
+    model.store = this;
     this.dataStore.push(model);
     return model;
+  }
+
+  /**
+   * Remove a model from the store and persist the change
+   * @param  {Model} model
+   * @return void
+   */
+  destroyModel(model) {
+    this.dataStore = this.dataStore.filter(_model => model !== model);
+    this.commit();
   }
 }
 
