@@ -17,6 +17,12 @@ class Model {
 
     this._data = {};
 
+    /**
+     * A model is considered "isDirty" when it has not been persisted or has been modified without being persisted.
+     * @type {Boolean}
+     */
+    this.isDirty = true;
+
     Object.assign(this, this.defaults(), properties);
   }
 
@@ -40,6 +46,14 @@ class Model {
 
   properties() {
     return {};
+  }
+
+  save() {
+    this.isDirty = false;
+    import('../services/Store').then(({ default: Store }) => {
+      debugger;
+      Store.commit();
+    });
   }
 
   valueOf() {
@@ -70,6 +84,7 @@ function createValidator(assertion, translator) {
       if (!assertion(_value)) {
         throw new Error(`Invalid value for ${propertyName}: ${_value}`);
       }
+      this.isDirty = true;
       this._data[propertyName] = _value;
     }
   });

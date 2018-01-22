@@ -33,13 +33,18 @@ class Store {
     if (dataFromLocalStorage) {
       this.dataStore = JSON.parse(dataFromLocalStorage).map(
         ([modelClass, data]) => {
-          return new modelTypes[modelClass](data);
+          const model = new modelTypes[modelClass](data);
+
+          // The model is clean since it is coming from the source of truth
+          model.dirty = false;
+          return model;
         }
       );
     }
 
     /** Temporarily add debts to the store for testing */
     if (!this.dataStore) {
+      debugger;
       this.dataStore = [
         new Debt({
           id: 1
@@ -61,9 +66,9 @@ class Store {
    * Commits the current data store to persistent storage
    */
   commit() {
-    const serializedStore = this.dataStore.map(model => {
-      return [model.modelName, model.valueOf()];
-    });
+    const serializedStore = this.dataStore
+      .filter(model => !model.dirty)
+      .map(model => [model.modelName, model.valueOf()]);
 
     localStorage.setItem('dataStore', JSON.stringify(serializedStore));
   }
@@ -87,9 +92,6 @@ class Store {
   createModel(modelClass, data = {}) {
     const model = new modelClass(data);
     this.dataStore.push(model);
-
-    // TODO: should the store commit every time a model is created?
-    this.commit();
     return model;
   }
 }
