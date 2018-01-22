@@ -102,7 +102,7 @@ class Store {
    * @return void
    */
   destroyModel(model) {
-    this.dataStore = this.dataStore.filter(_model => model !== model);
+    this.dataStore = this.dataStore.filter(_model => model !== _model);
     this.commit();
   }
 }
