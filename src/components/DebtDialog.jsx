@@ -15,6 +15,7 @@ class DebtDialog extends Component {
     this.init = this.init.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.typeChange = this.typeChange.bind(this);
+    this.close = this.close.bind(this);
     this.save = this.save.bind(this);
   }
 
@@ -51,8 +52,12 @@ class DebtDialog extends Component {
     debt[name] = value;
 
     this.setState({
-      debt
+      debt: debt
     });
+  }
+
+  close() {
+    this.props.onClose();
   }
 
   save() {
@@ -113,100 +118,112 @@ class DebtDialog extends Component {
     const debt = this.state.debt || this.state;
 
     if (visibleInputs.includes('lifetime')) {
+      inputs.push(<label for="lifetime">Lifetime</label>);
       inputs.push(
-        <li className="lifetime">
-          <label for="lifetime">Lifetime</label>
+        <div className="input-group">
           <input
             type="number"
-            name="lifetime"
             id="lifetime"
+            name="lifetime"
+            className="form-control"
             min="0"
             max="1200"
             value={debt.lifetime}
             onChange={this.handleInputChange}
           />
-        </li>
+          <span className="input-group-addon">Months</span>
+        </div>
       );
     }
 
     if (visibleInputs.includes('principle')) {
+      inputs.push(<label for="principle">Principle</label>);
       inputs.push(
-        <li className="principle">
-          <label for="principle">Principle</label>
+        <div className="input-group">
+          <span class="input-group-addon">$</span>
           <input
             type="number"
-            name="principle"
             id="principle"
+            name="principle"
+            className="form-control"
             min="0"
             value={formatCurrencyNumber(debt.principle)}
             onChange={this.handleInputChange}
           />
-        </li>
+        </div>
       );
     }
 
     if (visibleInputs.includes('balance')) {
+      inputs.push(<label for="balance">Balance</label>);
       inputs.push(
-        <li className="balance">
-          <label for="balance">Balance</label>
+        <div className="input-group">
+          <span class="input-group-addon">$</span>
           <input
             type="number"
-            name="balance"
             id="balance"
+            name="balance"
+            className="form-control"
             min="0"
             value={formatCurrencyNumber(debt.balance)}
             onChange={this.handleInputChange}
           />
-        </li>
+        </div>
       );
     }
 
     if (visibleInputs.includes('elapsedTime')) {
+      inputs.push(<label for="elapsedTime">Elaped Time</label>);
       inputs.push(
-        <li className="elapsedTime">
-          <label for="elapsedTime">Elaped Time</label>
+        <div className="input-group">
           <input
             type="number"
             name="elapsedTime"
             id="elapsedTime"
+            className="form-control"
             min="0"
             max="1200"
             value={debt.elapsedTime}
             onChange={this.handleInputChange}
           />
-        </li>
+          <span className="input-group-addon">Months</span>
+        </div>
       );
     }
 
     if (visibleInputs.includes('rate')) {
+      inputs.push(<label for="rate">Rate</label>);
       inputs.push(
-        <li className="rate">
-          <label for="rate">Rate</label>
+        <div className="input-group">
           <input
             type="number"
-            name="rate"
             id="rate"
+            name="rate"
+            className="form-control"
             min="0"
             value={debt.rate}
             onChange={this.handleInputChange}
           />
-        </li>
+          <span className="input-group-addon">% APR</span>
+        </div>
       );
     }
 
     if (visibleInputs.includes('minimumMonthlyPayment')) {
+      inputs.push(<label for="minimumMonthlyPayment">Minimum Payment</label>);
       inputs.push(
-        <li className="minimumMonthlyPayment">
-          <label for="minimumMonthlyPayment">Minimum Payment</label>
+        <div className="input-group">
+          <span class="input-group-addon">$</span>
           <input
             type="number"
-            name="minimumMonthlyPayment"
             id="minimumMonthlyPayment"
+            name="minimumMonthlyPayment"
+            className="form-control"
             min="0"
             value={formatCurrencyNumber(debt.minimumMonthlyPayment)}
             onChange={this.handleInputChange}
           />
-        </li>
+        </div>
       );
     }
 
@@ -220,33 +237,39 @@ class DebtDialog extends Component {
         }}
       >
         <form>
-          <ul>
-            <li className="type">
-              <label for="type">Type</label>
-              <select
-                name="type"
-                id="type"
-                value={debt.type}
-                onChange={this.handleInputChange}
-              >
-                {debtTypesOptions}
-              </select>
-            </li>
-            <li>
-              <label for="description">Description</label>
-              <input
-                type="text"
-                id="description"
-                name="description"
-                value={debt.description}
-                onChange={this.handleInputChange}
-              />
-            </li>
-            {inputs}
-          </ul>
+          <label for="type">Type</label>
+          <div className="input-group">
+            <select
+              id="type"
+              name="type"
+              className="form-control"
+              value={debt.type}
+              onChange={this.handleInputChange}
+            >
+              {debtTypesOptions}
+            </select>
+          </div>
+          <div className="input-group">
+            <label for="description">Description</label>
+            <input
+              type="text"
+              id="description"
+              name="description"
+              className="form-control"
+              value={debt.description}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          {inputs}
         </form>
-        <button onClick={this.props.onClose}>close</button>
-        <button onClick={this.save}>save</button>
+        <div class="input-group">
+          <button className="btn btn-default" onClick={this.close}>
+            close
+          </button>
+          <button className="btn btn-default" onClick={this.save}>
+            save
+          </button>
+        </div>
       </Modal>
     );
   }

@@ -50,8 +50,12 @@ class App extends Component {
         <main className="row">
           <div className="col-md-4">
             <DebtList debts={this.state.debts} />
-            <button onClick={this.openModal}>Add Debt</button>
-            <button onClick={this.clear}>Clear Everything</button>
+            <button className="btn btn-default" onClick={this.openModal}>
+              Add Debt
+            </button>
+            <button className="btn btn-default" onClick={this.clear}>
+              Clear Everything
+            </button>
           </div>
           <div className="col-md-8">
             <div className="panel panel-default">
@@ -67,9 +71,7 @@ class App extends Component {
           onClose={this.closeModal}
           debtObj={this.state.curDebtObj}
           onSave={this.saveDebt}
-        >
-          This is a test
-        </DebtDialog>
+        />
       </div>
     );
   }
