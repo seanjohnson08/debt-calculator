@@ -37,7 +37,7 @@ class Store {
 
           model.store = this;
           // The model is clean since it is coming from the source of truth
-          model.dirty = false;
+          model.isDirty = false;
           return model;
         }
       );
@@ -67,7 +67,7 @@ class Store {
    */
   commit() {
     const serializedStore = this.dataStore
-      .filter(model => !model.dirty)
+      .filter(model => !model.isDirty)
       .map(model => [model.modelName, model.valueOf()]);
 
     localStorage.setItem('dataStore', JSON.stringify(serializedStore));
