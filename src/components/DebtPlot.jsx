@@ -34,6 +34,7 @@ class DebtPlot extends Component {
       return (
         <Area
           type="monotone"
+          key={debt.id}
           dataKey={debt.id}
           name={debt.description}
           stackId="1"
