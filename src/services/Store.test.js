@@ -10,17 +10,11 @@ it('Creates new models', function() {
   expect(Store.dataStore).toContain(model);
 });
 
-if (
-  ('Clears the Store',
-  function() {
-    const model = Store.createModel(Model);
+it('Clears the Store', function() {
+  const model = Store.createModel(Model);
 
-    expect(model.isDirty).toBe(true);
-    expect(model.store).toBe(Store);
-    expect(model).toBeInstanceOf(Model);
-    expect(Store.dataStore).toContain(model);
+  expect(Store.dataStore).toContain(model);
 
-    Store.clear();
-    expect(Store.dataStore).toBe([]);
-  })
-);
+  Store.clear();
+  expect(Store.dataStore).toEqual([]);
+});

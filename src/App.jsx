@@ -20,6 +20,7 @@ class App extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   openModal() {
@@ -35,6 +36,11 @@ class App extends Component {
     debt.save();
   }
 
+  clear() {
+    Store.clear();
+    this.setState({ debts: [] });
+  }
+
   render() {
     return (
       <div className="App">
@@ -44,7 +50,7 @@ class App extends Component {
             <button className="btn btn-default" onClick={this.openModal}>
               Add Debt
             </button>
-            <button className="btn btn-default" onClick={Store.clear}>
+            <button className="btn btn-default" onClick={this.clear}>
               Clear Everything
             </button>
           </div>
