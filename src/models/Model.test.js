@@ -5,7 +5,8 @@ class TestModel extends Model {
     return {
       enum: Model.Enum(['enumValue']),
       integer: Model.Integer,
-      string: Model.String
+      string: Model.String,
+      boolean: Model.Boolean
     };
   }
 }
@@ -21,6 +22,20 @@ it('Validates Enums', () => {
   // Set an invalid value
   expect(() => {
     testModelInstance.enum = 'bad value';
+  }).toThrow();
+});
+
+it('Validates Booleans', () => {
+  const testModelInstance = new TestModel();
+
+  // Set a valid value
+  testModelInstance.boolean = true;
+
+  expect(testModelInstance._data['boolean']).toBe(true);
+
+  // Set an invalid value
+  expect(() => {
+    testModelInstance.boolean = 'nope';
   }).toThrow();
 });
 

@@ -99,6 +99,12 @@ function createValidator(assertion, translator) {
 /* Validators */
 Object.assign(Model, {
   /**
+   * Boolean data type
+   * @memberOf Model
+   */
+  Boolean: createValidator(value => typeof value === 'boolean'),
+
+  /**
    * Integer data type
    * @memberof Model
    */
