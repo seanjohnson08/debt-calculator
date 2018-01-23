@@ -110,7 +110,11 @@ class DebtDialog extends Component {
     };
 
     const debtTypesOptions = DebtTypes.map(type => {
-      return <option value={type}>{typeToName[type] || type}</option>;
+      return (
+        <option key={type} value={type}>
+          {typeToName[type] || type}
+        </option>
+      );
     });
 
     const inputs = [];
@@ -229,6 +233,7 @@ class DebtDialog extends Component {
 
     return (
       <Modal
+        ariaHideApp={false}
         isOpen={this.props.isOpen}
         onAfterOpen={this.init}
         aria={{

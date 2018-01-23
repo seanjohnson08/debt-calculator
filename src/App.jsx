@@ -17,10 +17,10 @@ class App extends Component {
 
     this.state.debts = Store.getAll(Debt);
 
-    this.clear = this.clear.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   openModal() {
@@ -37,11 +37,8 @@ class App extends Component {
   }
 
   clear() {
-    this.state.debts.forEach(model => model.destroy());
+    Store.clear();
     this.setState({ debts: [] });
-
-    //TODO: Remove this localstorage clean from here
-    localStorage.clear();
   }
 
   render() {

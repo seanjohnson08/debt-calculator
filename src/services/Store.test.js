@@ -9,3 +9,12 @@ it('Creates new models', function() {
   expect(model).toBeInstanceOf(Model);
   expect(Store.dataStore).toContain(model);
 });
+
+it('Clears the Store', function() {
+  const model = Store.createModel(Model);
+
+  expect(Store.dataStore).toContain(model);
+
+  Store.clear();
+  expect(Store.dataStore).toEqual([]);
+});
