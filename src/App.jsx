@@ -17,7 +17,6 @@ class App extends Component {
 
     this.state.debts = Store.getAll(Debt);
 
-    this.clear = this.clear.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
@@ -36,14 +35,6 @@ class App extends Component {
     debt.save();
   }
 
-  clear() {
-    this.state.debts.forEach(model => model.destroy());
-    this.setState({ debts: [] });
-
-    //TODO: Remove this localstorage clean from here
-    localStorage.clear();
-  }
-
   render() {
     return (
       <div className="App">
@@ -53,7 +44,7 @@ class App extends Component {
             <button className="btn btn-default" onClick={this.openModal}>
               Add Debt
             </button>
-            <button className="btn btn-default" onClick={this.clear}>
+            <button className="btn btn-default" onClick={Store.clear}>
               Clear Everything
             </button>
           </div>
