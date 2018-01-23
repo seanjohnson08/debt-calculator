@@ -6,7 +6,11 @@ const modelTypes = {
 
 let _instance;
 
-const localStorage = window.localStorage || { getItem() {}, setItem() {} };
+const localStorage = window.localStorage || {
+  getItem() {},
+  setItem() {},
+  clear() {}
+};
 /**
  * Store singleton
  * The store is responsible for managing, writing, and retrieving all data in our application.
@@ -107,6 +111,14 @@ class Store {
   destroyModel(model) {
     this.dataStore = this.dataStore.filter(_model => model !== _model);
     this.commit();
+  }
+
+  /**
+   * Remove all models from the Store
+   */
+  clear() {
+    this.dataStore.forEach(model => model.destroy());
+    localStorage.clear();
   }
 }
 
