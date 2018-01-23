@@ -46,7 +46,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App container">
         <main className="row">
           <div className="col-md-4">
             <DebtList debts={this.state.debts} />

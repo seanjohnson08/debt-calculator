@@ -78,3 +78,19 @@ it('valueOf returns internal state', () => {
 
   expect(testModelInstance.valueOf()).toEqual(state);
 });
+
+it('calls the store and is marked clean when save() is called', () => {
+  const commit = jest.fn();
+  const store = { commit };
+
+  const testModelInstance = new TestModel();
+  testModelInstance.store = store;
+
+  // New models should be dirty until saved
+  expect(testModelInstance.isDirty).toBe(true);
+
+  // Save the model
+  testModelInstance.save();
+  expect(store.commit).toHaveBeenCalled();
+  expect(testModelInstance.isDirty).toBe(false);
+});
