@@ -8,6 +8,7 @@ class DebtList extends Component {
         <DebtListItem
           debt={debt}
           key={debt.id}
+          editDebt={this.props.editDebt}
           removeDebt={this.props.removeDebt}
         />
       );

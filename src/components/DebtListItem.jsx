@@ -14,50 +14,53 @@ class DebtList extends Component {
     const { type } = debt;
     const icon = iconTypes[debt.type];
 
+    let details;
+
     switch (type) {
       case 'card':
-        return (
-          <li className="list-group-item">
-            <h4>
-              <span className={'glyphicon glyphicon-' + icon} />{' '}
-              {debt.description}
-            </h4>
-            <dl className="dl-horizontal">
-              <dt>Total Balance</dt>
-              <dd>{Currency(debt.balance)}</dd>
-              <dt>Lifetime</dt>
-              <dd>{debt.elapsedTime} months</dd>
-            </dl>
-            <button
-              className="btn btn-danger"
-              onClick={() => this.props.removeDebt(debt)}
-            >
-              Delete
-            </button>
-          </li>
+        details = (
+          <dl className="dl-horizontal">
+            <dt>Total Balance</dt>
+            <dd>{Currency(debt.balance)}</dd>
+            <dt>Lifetime</dt>
+            <dd>{debt.elapsedTime} months</dd>
+          </dl>
         );
+        break;
+
       default:
-        return (
-          <li className="list-group-item">
-            <h4>
-              <span className={'glyphicon glyphicon-' + icon} />{' '}
-              {debt.description}
-            </h4>
-            <dl className="dl-horizontal">
-              <dt>Total Principle</dt>
-              <dd>{Currency(debt.principle)}</dd>
-              <dt>Lifetime</dt>
-              <dd>{debt.lifetime} months</dd>
-            </dl>
-            <button
-              className="btn btn-danger"
-              onClick={() => this.props.removeDebt(debt)}
-            >
-              Delete
-            </button>
-          </li>
+        details = (
+          <dl className="dl-horizontal">
+            <dt>Total Principle</dt>
+            <dd>{Currency(debt.principle)}</dd>
+            <dt>Lifetime</dt>
+            <dd>{debt.lifetime} months</dd>
+          </dl>
         );
     }
+
+    return (
+      <li className="list-group-item">
+        <h4>
+          <span className={'glyphicon glyphicon-' + icon} /> {debt.description}
+        </h4>
+        {details}
+        <div className="btn-toolbar">
+          <button
+            className="btn btn-danger"
+            onClick={() => this.props.removeDebt(debt)}
+          >
+            Delete
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => this.props.editDebt(debt)}
+          >
+            Edit
+          </button>
+        </div>
+      </li>
+    );
   }
 }
 

@@ -19,6 +19,7 @@ class App extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.editDebt = this.editDebt.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
     this.clear = this.clear.bind(this);
     this.removeDebt = this.removeDebt.bind(this);
@@ -32,9 +33,19 @@ class App extends Component {
     this.setState({ modalIsOpen: false });
   }
 
+  editDebt(debt) {
+    this.setState({ curDebtObj: debt });
+    this.openModal();
+  }
+
   saveDebt(debt) {
     const { debts } = this.state;
-    debts.push(debt);
+
+    // TODO: Make store manage the list of debts
+    if (!debts.includes(debt)) {
+      debts.push(debt);
+    }
+
     debt.save();
     this.setState({ debts });
   }
@@ -56,7 +67,11 @@ class App extends Component {
       <div className="App container">
         <main className="row">
           <div className="col-md-4">
-            <DebtList debts={this.state.debts} removeDebt={this.removeDebt} />
+            <DebtList
+              debts={this.state.debts}
+              editDebt={this.editDebt}
+              removeDebt={this.removeDebt}
+            />
             <button className="btn btn-default" onClick={this.openModal}>
               Add Debt
             </button>
