@@ -70,6 +70,14 @@ class Store {
   }
 
   /**
+   * Remove all models from the Store
+   */
+  clear() {
+    this.dataStore.forEach(model => model.destroy());
+    localStorage.clear();
+  }
+
+  /**
    * Commits the current data store to persistent storage
    */
   commit() {
@@ -88,6 +96,19 @@ class Store {
   getAll(modelClass) {
     // Not performant for large data sets, but our app is tiny so I don't care
     return this.dataStore.filter(model => model instanceof modelClass);
+  }
+
+  /**
+   * Retrieve a single model
+   * @param  {Class} modelClass
+   * @param  {String|Number}   id
+   * @return {Model}
+   */
+  get(modelClass, id) {
+    // Not performant for large data sets, but our app is tiny so I don't care
+    return this.dataStore.find(
+      model => model instanceof modelClass && model.id === id
+    );
   }
 
   /**
@@ -111,14 +132,6 @@ class Store {
   destroyModel(model) {
     this.dataStore = this.dataStore.filter(_model => model !== _model);
     this.commit();
-  }
-
-  /**
-   * Remove all models from the Store
-   */
-  clear() {
-    this.dataStore.forEach(model => model.destroy());
-    localStorage.clear();
   }
 }
 

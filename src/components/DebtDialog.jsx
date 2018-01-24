@@ -177,7 +177,7 @@ class DebtDialog extends Component {
     }
 
     if (visibleInputs.includes('elapsedTime')) {
-      inputs.push(<label for="elapsedTime">Elaped Time</label>);
+      inputs.push(<label for="elapsedTime">Elapsed Time</label>);
       inputs.push(
         <div className="input-group">
           <input
