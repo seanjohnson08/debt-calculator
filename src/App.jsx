@@ -6,7 +6,7 @@ import Store from './services/Store';
 import DebtList from './components/DebtList.jsx';
 import DebtDialog from './components/DebtDialog.jsx';
 import DebtPlot from './components/DebtPlot.jsx';
-import formatCurrency, { formatCurrencyNumber } from './helpers/Currency';
+import formatCurrency from './helpers/Currency';
 
 class App extends Component {
   constructor() {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import Debt, { DebtTypes } from '../models/Debt';
 import Store from '../services/Store';
-import { formatCurrencyNumber } from '../helpers/Currency';
 import InputCurrency from './InputCurrency';
 
 class DebtDialog extends Component {

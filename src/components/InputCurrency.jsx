@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
-import Debt, { DebtTypes } from '../models/Debt';
-import Store from '../services/Store';
 import { formatCurrencyNumber } from '../helpers/Currency';
 
 class DebtDialog extends Component {
@@ -14,7 +11,7 @@ class DebtDialog extends Component {
   }
 
   handleInputChange(event) {
-    let { name, value } = event.target;
+    let { value } = event.target;
 
     // TODO: double check this formatting, see if it can be improved.
 
