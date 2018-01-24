@@ -6,6 +6,7 @@ import Store from './services/Store';
 import DebtList from './components/DebtList.jsx';
 import DebtDialog from './components/DebtDialog.jsx';
 import DebtPlot from './components/DebtPlot.jsx';
+import { formatCurrencyNumber } from './helpers/Currency';
 
 class App extends Component {
   constructor() {
@@ -65,7 +66,7 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-        <main className="row">
+        <div className="row">
           <div className="col-md-4">
             <DebtList
               debts={this.state.debts}
@@ -83,11 +84,16 @@ class App extends Component {
             <div className="panel panel-default">
               <div className="panel-heading">Projections</div>
               <div className="panel-body">
-                <DebtPlot debts={this.state.debts} width={600} height={300} />
+                <DebtPlot
+                  debts={this.state.debts}
+                  monthlyPayment={this.state.monthlyPayment}
+                  width={600}
+                  height={300}
+                />
               </div>
             </div>
           </div>
-        </main>
+        </div>
         <DebtDialog
           isOpen={this.state.modalIsOpen}
           onClose={this.closeModal}

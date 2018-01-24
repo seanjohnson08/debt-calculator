@@ -15,7 +15,7 @@ class Debt extends Model {
       principle: Model.Integer,
       balance: Model.Integer,
       elapsedTime: Model.Integer,
-      rate: Model.Integer,
+      rate: Model.Number,
       minimumMonthlyPayment: Model.Integer
     };
   }
@@ -29,7 +29,7 @@ class Debt extends Model {
       principle: 212000, // Dollars
       balance: 19999, // Dollars
       elapsedTime: 2, // Months
-      rate: 102, // Percent
+      rate: 1.02, // Percent
       minimumMonthlyPayment: 100 // Dollars
     };
   }

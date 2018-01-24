@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import Debt, { DebtTypes } from '../models/Debt';
 import Store from '../services/Store';
 import { formatCurrencyNumber } from '../helpers/Currency';
+import InputCurrency from './InputCurrency';
 
 class DebtDialog extends Component {
   constructor() {
@@ -26,34 +27,16 @@ class DebtDialog extends Component {
   }
 
   handleInputChange(event) {
-    const target = event.target;
-    let value = target.value;
-    const name = target.name;
+    let { name, value } = event.target;
     const debt = this.state.debt;
 
-    // TODO: double check this formatting, see if it can be improved.
-
-    switch (name) {
-      case 'type':
-        this.typeChange(value);
-        break;
-      case 'principle':
-      case 'balance':
-      case 'rate':
-      case 'minimumMonthlyPayment':
-        const str = `${value}`;
-        value = str.replace(/\./g, '');
-        value = parseInt(value, 10);
-        break;
-      default:
-        break;
+    if (name === 'type') {
+      this.typeChange(value);
     }
 
     debt[name] = value;
 
-    this.setState({
-      debt: debt
-    });
+    this.setState({ debt });
   }
 
   close() {
@@ -144,36 +127,22 @@ class DebtDialog extends Component {
     if (visibleInputs.includes('principle')) {
       inputs.push(<label for="principle">Principle</label>);
       inputs.push(
-        <div className="input-group">
-          <span class="input-group-addon">$</span>
-          <input
-            type="number"
-            id="principle"
-            name="principle"
-            className="form-control"
-            min="0"
-            value={formatCurrencyNumber(debt.principle)}
-            onChange={this.handleInputChange}
-          />
-        </div>
+        <InputCurrency
+          name="principle"
+          value={debt.principle}
+          onChange={this.handleInputChange}
+        />
       );
     }
 
     if (visibleInputs.includes('balance')) {
       inputs.push(<label for="balance">Balance</label>);
       inputs.push(
-        <div className="input-group">
-          <span class="input-group-addon">$</span>
-          <input
-            type="number"
-            id="balance"
-            name="balance"
-            className="form-control"
-            min="0"
-            value={formatCurrencyNumber(debt.balance)}
-            onChange={this.handleInputChange}
-          />
-        </div>
+        <InputCurrency
+          name="balance"
+          value={debt.balance}
+          onChange={this.handleInputChange}
+        />
       );
     }
 
@@ -217,18 +186,11 @@ class DebtDialog extends Component {
     if (visibleInputs.includes('minimumMonthlyPayment')) {
       inputs.push(<label for="minimumMonthlyPayment">Minimum Payment</label>);
       inputs.push(
-        <div className="input-group">
-          <span class="input-group-addon">$</span>
-          <input
-            type="number"
-            id="minimumMonthlyPayment"
-            name="minimumMonthlyPayment"
-            className="form-control"
-            min="0"
-            value={formatCurrencyNumber(debt.minimumMonthlyPayment)}
-            onChange={this.handleInputChange}
-          />
-        </div>
+        <InputCurrency
+          name="minimumMonthlyPayment"
+          value={debt.minimumMonthlyPayment}
+          onChange={this.handleInputChange}
+        />
       );
     }
 

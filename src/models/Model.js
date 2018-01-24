@@ -121,6 +121,19 @@ Object.assign(Model, {
     }
   ),
 
+  Number: createValidator(
+    value => typeof value === 'number' && !Number.isNaN(value),
+    value => {
+      if (typeof value === 'string') {
+        if (!value.length) {
+          return 0;
+        }
+        return parseFloat(value);
+      }
+      return value;
+    }
+  ),
+
   /**
    * String data type
    * @memberof Model
