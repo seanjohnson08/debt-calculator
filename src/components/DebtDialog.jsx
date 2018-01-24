@@ -62,6 +62,7 @@ class DebtDialog extends Component {
 
   save() {
     this.props.onSave(this.state.debt);
+    this.close();
   }
 
   /**
