@@ -47,16 +47,16 @@ class DebtList extends Component {
         {details}
         <div className="btn-toolbar">
           <button
-            className="btn btn-danger"
-            onClick={() => this.props.removeDebt(debt)}
-          >
-            Delete
-          </button>
-          <button
             className="btn btn-primary"
             onClick={() => this.props.editDebt(debt)}
           >
             Edit
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => this.props.removeDebt(debt)}
+          >
+            Delete
           </button>
         </div>
       </li>
