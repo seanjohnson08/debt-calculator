@@ -109,3 +109,18 @@ it('calls the store and is marked clean when save() is called', () => {
   expect(store.commit).toHaveBeenCalled();
   expect(testModelInstance.isDirty).toBe(false);
 });
+
+it('tells the store to remove the model when destroy() is called', () => {
+  const destroyModel = jest.fn();
+  const store = { destroyModel };
+
+  const testModelInstance = new TestModel();
+  testModelInstance.store = store;
+
+  expect(testModelInstance.destroyed).toBeFalsy();
+
+  testModelInstance.destroy();
+
+  expect(testModelInstance.destroyed).toBeTruthy();
+  expect(destroyModel).toHaveBeenCalled();
+});

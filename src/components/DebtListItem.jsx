@@ -28,6 +28,12 @@ class DebtList extends Component {
               <dt>Lifetime</dt>
               <dd>{debt.elapsedTime} months</dd>
             </dl>
+            <button
+              className="btn btn-danger"
+              onClick={() => this.props.removeDebt(debt)}
+            >
+              Delete
+            </button>
           </li>
         );
       default:
@@ -43,6 +49,12 @@ class DebtList extends Component {
               <dt>Lifetime</dt>
               <dd>{debt.lifetime} months</dd>
             </dl>
+            <button
+              className="btn btn-danger"
+              onClick={() => this.props.removeDebt(debt)}
+            >
+              Delete
+            </button>
           </li>
         );
     }

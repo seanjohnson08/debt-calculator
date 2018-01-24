@@ -21,6 +21,7 @@ class App extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
     this.clear = this.clear.bind(this);
+    this.removeDebt = this.removeDebt.bind(this);
   }
 
   openModal() {
@@ -32,8 +33,17 @@ class App extends Component {
   }
 
   saveDebt(debt) {
-    this.state.debts.push(debt);
+    const { debts } = this.state;
+    debts.push(debt);
     debt.save();
+    this.setState({ debts });
+  }
+
+  removeDebt(debt) {
+    let { debts } = this.state;
+    debts = debts.filter(_debt => _debt !== debt);
+    debt.destroy();
+    this.setState({ debts });
   }
 
   clear() {
@@ -46,7 +56,7 @@ class App extends Component {
       <div className="App container">
         <main className="row">
           <div className="col-md-4">
-            <DebtList debts={this.state.debts} />
+            <DebtList debts={this.state.debts} removeDebt={this.removeDebt} />
             <button className="btn btn-default" onClick={this.openModal}>
               Add Debt
             </button>

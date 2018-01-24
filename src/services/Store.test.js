@@ -3,6 +3,18 @@ import Model from '../models/Model';
 
 class CustomModel extends Model {}
 
+afterEach(() => {
+  Store.clear();
+});
+
+function populateStore() {
+  // Create 10 of each type of model
+  for (let i = 0; i < 10; i++) {
+    Store.createModel(Model, { id: i });
+    Store.createModel(CustomModel, { id: i });
+  }
+}
+
 it('Creates new models', () => {
   const model = Store.createModel(Model);
 
@@ -22,11 +34,7 @@ it('Clears the Store', function() {
 });
 
 it('Fetches all models of a certain type', () => {
-  // Create 10 of each type of model
-  for (let i = 0; i < 10; i++) {
-    Store.createModel(Model);
-    Store.createModel(CustomModel);
-  }
+  populateStore();
 
   expect(Store.dataStore.length).toBe(20);
 
@@ -34,13 +42,22 @@ it('Fetches all models of a certain type', () => {
 });
 
 it('Fetches a single model by id', () => {
-  // Create 10 of each type of model
-  for (let i = 0; i < 10; i++) {
-    Store.createModel(Model, { id: i });
-    Store.createModel(CustomModel, { id: i });
-  }
+  populateStore();
 
   const fetchedModel = Store.get(CustomModel, 2);
   expect(fetchedModel.id).toBe(2);
   expect(fetchedModel).toBeInstanceOf(CustomModel);
+});
+
+it('Deletes a single model', () => {
+  populateStore();
+
+  const myModel = Store.createModel(CustomModel, { id: 100 });
+  expect(Store.dataStore.length).toBe(21);
+  expect(Store.dataStore).toContain(myModel);
+
+  Store.destroyModel(myModel);
+
+  expect(Store.dataStore.length).toBe(20);
+  expect(Store.dataStore).not.toContain(myModel);
 });
