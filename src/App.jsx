@@ -6,17 +6,16 @@ import Store from './services/Store';
 import DebtList from './components/DebtList.jsx';
 import DebtDialog from './components/DebtDialog.jsx';
 import DebtPlot from './components/DebtPlot.jsx';
-import { formatCurrencyNumber } from './helpers/Currency';
+import formatCurrency, { formatCurrencyNumber } from './helpers/Currency';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
+      debts: Store.getAll(Debt)
     };
-
-    this.state.debts = Store.getAll(Debt);
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -63,7 +62,18 @@ class App extends Component {
     this.setState({ debts: [] });
   }
 
+  generateSummary() {
+    return {
+      totalCurrentDebt: this.state.debts.reduce(
+        (t, debt) => t + debt.principle,
+        0
+      )
+    };
+  }
+
   render() {
+    const summary = this.generateSummary();
+
     return (
       <div className="App container">
         <div className="row">
@@ -90,6 +100,15 @@ class App extends Component {
                   width={600}
                   height={300}
                 />
+              </div>
+            </div>
+            <div className="panel panel-default">
+              <div className="panel-heading">Debt Summary</div>
+              <div className="panel-body">
+                <dl className="dl-horizontal">
+                  <dt>Total Current Debt</dt>
+                  <dd>{formatCurrency(summary.totalCurrentDebt)}</dd>
+                </dl>
               </div>
             </div>
           </div>
