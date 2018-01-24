@@ -50,13 +50,13 @@ class DebtList extends Component {
             className="btn btn-primary"
             onClick={() => this.props.editDebt(debt)}
           >
-            Edit
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true" /> Edit
           </button>
           <button
             className="btn btn-danger"
             onClick={() => this.props.removeDebt(debt)}
           >
-            Delete
+            <span class="glyphicon glyphicon-trash" aria-hidden="true" /> Delete
           </button>
         </div>
       </li>
