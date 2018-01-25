@@ -100,7 +100,7 @@ class App extends Component {
             <div className="panel panel-default">
               <div className="panel-heading">Projections</div>
               <div className="panel-body">
-                <label for="monthlyContribution">
+                <label htmlFor="monthlyContribution">
                   Total Monthly Contribution:
                 </label>
                 <InputCurrency
