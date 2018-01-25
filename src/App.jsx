@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import Debt from './models/Debt';
 import Store from './services/Store';
 
-import DebtList from './components/DebtList.jsx';
-import DebtDialog from './components/DebtDialog.jsx';
-import DebtPlot from './components/DebtPlot.jsx';
+import DebtList from './components/DebtList';
+import DebtDialog from './components/DebtDialog';
+import DebtPlot from './components/DebtPlot';
+import InputCurrency from './components/InputCurrency';
 import formatCurrency from './helpers/Currency';
 
 class App extends Component {
@@ -14,7 +15,8 @@ class App extends Component {
 
     this.state = {
       modalIsOpen: false,
-      debts: Store.getAll(Debt)
+      debts: Store.getAll(Debt),
+      monthlyContribution: 30000
     };
 
     this.openModal = this.openModal.bind(this);
@@ -23,6 +25,10 @@ class App extends Component {
     this.saveDebt = this.saveDebt.bind(this);
     this.clear = this.clear.bind(this);
     this.removeDebt = this.removeDebt.bind(this);
+  }
+
+  setMonthlyContribution(value) {
+    this.setState({ monthlyContribution: value });
   }
 
   openModal() {
@@ -94,9 +100,19 @@ class App extends Component {
             <div className="panel panel-default">
               <div className="panel-heading">Projections</div>
               <div className="panel-body">
+                <label for="monthlyContribution">
+                  Total Monthly Contribution:
+                </label>
+                <InputCurrency
+                  name="monthlyContribution"
+                  value={this.state.monthlyContribution}
+                  onChange={evt =>
+                    this.setMonthlyContribution(evt.target.value)
+                  }
+                />
                 <DebtPlot
                   debts={this.state.debts}
-                  monthlyPayment={this.state.monthlyPayment}
+                  monthlyContribution={this.state.monthlyContribution}
                   width={600}
                   height={300}
                 />

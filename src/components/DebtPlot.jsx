@@ -8,12 +8,25 @@ import {
   YAxis
 } from 'recharts';
 
+function totalWithInterest(debt, months = 0) {
+  return debt.principle / 100 * debt.rate ** months;
+}
+
 class DebtPlot extends Component {
+  constructor(props) {
+    super();
+  }
   calculateProjections() {
+    const { monthlyContribution } = this.props;
     this.data = [];
     for (let i = 0; i <= 10; i++) {
       const projectedPrinciples = this.props.debts.reduce((accum, debt) => {
-        accum[debt.id] = Math.round(debt.principle / 100 * (1 - 0.1 * i));
+        accum[debt.id] = Math.max(
+          (totalWithInterest(debt, i) - monthlyContribution / 100 * i).toFixed(
+            2
+          ),
+          0
+        );
         return accum;
       }, {});
 
