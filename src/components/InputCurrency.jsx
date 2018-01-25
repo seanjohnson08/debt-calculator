@@ -6,7 +6,6 @@ class DebtDialog extends Component {
     super();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.name = props.name;
-    console.log(props);
     this.state = { value: props.value };
   }
 
