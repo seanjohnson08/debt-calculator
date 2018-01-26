@@ -7,9 +7,16 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
+import Decimal from '../helpers/Decimal';
 
 function totalWithInterest(debt, months = 0) {
-  return debt.principle / 100 * debt.rate ** months;
+  const rate = new Decimal(debt.rate);
+
+  let totalRate = new Decimal(rate.divide(1200).add(1) ** months);
+  return new Decimal(debt.principle).divide(100).mult(totalRate);
+
+  // return debt.principle / 100 * (1 + (debt.rate / 1200)) ** months;
+  // return debt.principle / 100 * debt.rate ** months;
 }
 
 class DebtPlot extends Component {
