@@ -80,6 +80,11 @@ class App extends Component {
   render() {
     const summary = this.generateSummary();
 
+    const chris = <a href="http://linkedin.com/in/chris-banks">Chris</a>;
+    const sean = <a href="http://linkedin.com/in/seantherockjohnson">Sean</a>;
+
+    const authors = Math.random() > 0.5 ? [chris, sean] : [sean, chris];
+
     return (
       <div className="App container">
         <div className="row">
@@ -128,6 +133,9 @@ class App extends Component {
               </div>
             </div>
           </div>
+        </div>
+        <div class="well well-sm">
+          Made by {authors[0]} &amp; {authors[1]}
         </div>
         <DebtDialog
           isOpen={this.state.modalIsOpen}
