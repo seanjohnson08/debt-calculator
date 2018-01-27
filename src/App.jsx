@@ -80,7 +80,7 @@ class App extends Component {
   render() {
     const summary = this.generateSummary();
 
-    const chris = <a href="http://linkedin.com/in/chris-banks">Chris</a>;
+    const chris = <a href="http://linkedin.com/in/christopher-banks">Chris</a>;
     const sean = <a href="http://linkedin.com/in/seantherockjohnson">Sean</a>;
 
     const authors = Math.random() > 0.5 ? [chris, sean] : [sean, chris];
