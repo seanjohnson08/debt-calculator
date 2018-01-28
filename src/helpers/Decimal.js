@@ -2,15 +2,30 @@ class Decimal {
   /**
    * @hideconstructor
    */
-  constructor(value, precision = 4) {
+  constructor(_value, _precision = 4) {
+    let value = _value;
+
+    let int;
+    let precision = _precision;
+
+    switch (typeof value) {
+      case 'object':
+        ({ int, precision } = value);
+        break;
+      case 'string':
+      case 'number':
+        value = parseFloat(value);
+        const offset = Math.pow(10, precision);
+        int = Math.round(value * offset);
+        break;
+    }
+
+    this.int = int;
     Object.defineProperty(this, 'precision', {
       value: precision,
-      writeable: false
+      writeable: false,
+      enumerable: true
     });
-
-    const floatValue = parseFloat(value);
-    const offset = Math.pow(10, this.precision);
-    this.int = Math.round(floatValue * offset);
   }
 
   get modelName() {

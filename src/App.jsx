@@ -134,7 +134,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div class="well well-sm">
+        <div className="well well-sm">
           Made by {authors[0]} &amp; {authors[1]}
         </div>
         <DebtDialog
