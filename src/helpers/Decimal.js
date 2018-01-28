@@ -18,6 +18,9 @@ class Decimal {
         const offset = Math.pow(10, precision);
         int = Math.round(value * offset);
         break;
+      default:
+        throw new Error(`Unable to construct Decimal from ${value}`);
+        break;
     }
 
     this.int = int;
