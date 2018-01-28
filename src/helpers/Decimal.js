@@ -20,7 +20,6 @@ class Decimal {
         break;
       default:
         throw new Error(`Unable to construct Decimal from ${value}`);
-        break;
     }
 
     this.int = int;
