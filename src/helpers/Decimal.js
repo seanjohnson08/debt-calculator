@@ -28,10 +28,6 @@ class Decimal {
     });
   }
 
-  get modelName() {
-    return 'Decimal';
-  }
-
   /**
    * add offsets the smaller integer to match the larger integer then creates a Decimal with the sum
    * @param {Number or Decimal} number [description]
