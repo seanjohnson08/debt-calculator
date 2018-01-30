@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { formatCurrencyNumber } from '../helpers/Currency';
 
 class DebtDialog extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.name = props.name;
-    this.state = { value: props.value };
   }
 
   handleInputChange(event) {
@@ -14,15 +12,13 @@ class DebtDialog extends Component {
 
     // TODO: double check this formatting, see if it can be improved.
 
-    const str = `${value}`;
-    value = str.replace(/\./g, '');
-    this.value = parseInt(value, 10);
-    this.setState({ value: this.value });
-    this.props.onChange({ target: this });
+    const str = value || '';
+    value = parseInt(str.replace(/\D/g, ''), 10);
+    this.props.onChange({ target: { value } });
   }
 
   render() {
-    const { value } = this.state;
+    const { value } = this.props;
     const { name } = this;
     return (
       <div className="input-group">
