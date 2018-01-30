@@ -45,7 +45,7 @@ class DebtDialog extends Component {
 
   handleInputChange(event) {
     let { name, value } = event.target;
-    const debt = this.state.debt;
+    const { debt } = this.state;
 
     debt[name] = value;
 
@@ -222,7 +222,7 @@ class DebtDialog extends Component {
       );
     });
 
-    const selectedTab = debt ? typeToName[debt.type] : null;
+    const selectedTab = debt ? typeToName[debt.type] : undefined;
 
     return (
       <Modal
