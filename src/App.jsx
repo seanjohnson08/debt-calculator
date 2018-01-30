@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   editDebt(debt) {
-    this.setState({ curDebtObj: debt });
+    this.setState({ debt });
     this.openModal();
   }
 
@@ -167,7 +167,7 @@ class App extends Component {
         <DebtDialog
           isOpen={this.state.modalIsOpen}
           onClose={this.closeModal}
-          debtObj={this.state.curDebtObj}
+          debt={this.state.debt}
           onSave={this.saveDebt}
         />
       </div>

@@ -66,94 +66,129 @@ class DebtDialog extends Component {
     this.close();
   }
 
+  getInputsForRender() {
+    const { debt } = this.state;
+
+    if (!debt) {
+      return {};
+    }
+
+    return {
+      description: (
+        <React.Fragment>
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            className="form-control"
+            value={debt.description}
+            onChange={this.handleInputChange}
+          />
+        </React.Fragment>
+      ),
+
+      lifetime: (
+        <React.Fragment>
+          <label htmlFor="lifetime">Lifetime</label>
+          <div className="input-group">
+            <input
+              type="number"
+              id="lifetime"
+              name="lifetime"
+              className="form-control"
+              min="0"
+              max="1200"
+              value={debt.lifetime}
+              onChange={this.handleInputChange}
+            />
+            <div className="input-group-append">
+              <div className="input-group-text">Months</div>
+            </div>
+          </div>
+        </React.Fragment>
+      ),
+      principle: (
+        <React.Fragment>
+          <label htmlFor="principle">Principle</label>
+          <InputCurrency
+            name="principle"
+            className="form-control"
+            value={debt.principle}
+            onChange={this.handleInputChange}
+          />
+        </React.Fragment>
+      ),
+
+      balance: (
+        <React.Fragment>
+          <label htmlFor="balance">Balance</label>
+          <InputCurrency
+            name="balance"
+            value={debt.balance}
+            onChange={this.handleInputChange}
+          />
+        </React.Fragment>
+      ),
+
+      elapsedTime: (
+        <React.Fragment>
+          <label htmlFor="elapsedTime">Elapsed Time</label>
+          <div className="input-group">
+            <input
+              type="number"
+              name="elapsedTime"
+              id="elapsedTime"
+              className="form-control"
+              min="0"
+              max="1200"
+              value={debt.elapsedTime}
+              onChange={this.handleInputChange}
+            />
+            <div className="input-group-append">
+              <div className="input-group-text">Months</div>
+            </div>
+          </div>
+        </React.Fragment>
+      ),
+
+      rate: (
+        <React.Fragment>
+          <label htmlFor="rate">Rate</label>
+          <div className="input-group">
+            <input
+              type="number"
+              id="rate"
+              name="rate"
+              className="form-control"
+              min="0"
+              value={debt.rate}
+              onChange={this.handleInputChange}
+            />
+            <div className="input-group-append">
+              <div className="input-group-text">% APR</div>
+            </div>
+          </div>
+        </React.Fragment>
+      ),
+
+      minimumMonthlyPayment: (
+        <React.Fragment>
+          <label htmlFor="minimumMonthlyPayment">Minimum Payment</label>,
+          <InputCurrency
+            name="minimumMonthlyPayment"
+            value={debt.minimumMonthlyPayment}
+            onChange={this.handleInputChange}
+          />
+        </React.Fragment>
+      )
+    };
+  }
+
   render() {
     const typeToName = this.typeToName;
-    const inputs = {};
-    const debt = this.state.debt || this.state;
-
-    inputs.lifetime = [
-      <label htmlFor="lifetime">Lifetime</label>,
-      <div className="input-group">
-        <input
-          type="number"
-          id="lifetime"
-          name="lifetime"
-          className="form-control"
-          min="0"
-          max="1200"
-          value={debt.lifetime}
-          onChange={this.handleInputChange}
-        />
-        <div className="input-group-append">
-          <div className="input-group-text">Months</div>
-        </div>
-      </div>
-    ];
-
-    inputs.principle = [
-      <label htmlFor="principle">Principle</label>,
-      <InputCurrency
-        name="principle"
-        className="form-control"
-        value={debt.principle}
-        onChange={this.handleInputChange}
-      />
-    ];
-
-    inputs.balance = [
-      <label htmlFor="balance">Balance</label>,
-      <InputCurrency
-        name="balance"
-        value={debt.balance}
-        onChange={this.handleInputChange}
-      />
-    ];
-
-    inputs.elapsedTime = [
-      <label htmlFor="elapsedTime">Elapsed Time</label>,
-      <div className="input-group">
-        <input
-          type="number"
-          name="elapsedTime"
-          id="elapsedTime"
-          className="form-control"
-          min="0"
-          max="1200"
-          value={debt.elapsedTime}
-          onChange={this.handleInputChange}
-        />
-        <div className="input-group-append">
-          <div className="input-group-text">Months</div>
-        </div>
-      </div>
-    ];
-
-    inputs.rate = [
-      <label htmlFor="rate">Rate</label>,
-      <div className="input-group">
-        <input
-          type="number"
-          id="rate"
-          name="rate"
-          className="form-control"
-          min="0"
-          value={debt.rate}
-          onChange={this.handleInputChange}
-        />
-        <div className="input-group-append">
-          <div className="input-group-text">% APR</div>
-        </div>
-      </div>
-    ];
-
-    inputs.minimumMonthlyPayment = [
-      <label htmlFor="minimumMonthlyPayment">Minimum Payment</label>,
-      <InputCurrency
-        name="minimumMonthlyPayment"
-        value={debt.minimumMonthlyPayment}
-        onChange={this.handleInputChange}
-      />
-    ];
+    let inputs = this.getInputsForRender();
+    const { debt } = this.state;
 
     const tabs = DebtTypes.map(type => {
       let content = [];
@@ -182,19 +217,12 @@ class DebtDialog extends Component {
 
       return (
         <Tab label={typeToName[type] || type} key={type} eventKey={type}>
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            className="form-control"
-            value={debt.description}
-            onChange={this.handleInputChange}
-          />
           {content}
         </Tab>
       );
     });
+
+    const selectedTab = debt ? typeToName[debt.type] : null;
 
     return (
       <Modal
@@ -207,7 +235,7 @@ class DebtDialog extends Component {
         }}
       >
         <form>
-          <Tabs onSelect={this.tabSelected} selected={typeToName[debt.type]}>
+          <Tabs onSelect={this.tabSelected} selected={selectedTab}>
             {tabs}
           </Tabs>
           <button className="btn btn-default" onClick={this.close}>
