@@ -98,24 +98,21 @@ class App extends Component {
                 className="list-group-flush"
               />
               <div className="card-body">
-                <button className="btn btn-primary" onClick={this.openModal}>
+                <button
+                  className="btn btn-primary mr-2"
+                  onClick={this.openModal}
+                >
                   Add Debt
                 </button>
-                &nbsp;
                 <button className="btn btn-danger" onClick={this.clear}>
                   Clear Everything
                 </button>
               </div>
             </div>
-            <div className="card-body">
-              Made by {authors[0]} &amp; {authors[1]} &copy; {year}
-            </div>
-          </div>
-          <div className="col-md-8">
             <div className="card">
               <div className="card-body">
-                <h3 className="card-title">Projections</h3>
-                <p className="card-text">
+                <h4 className="card-title">Payment Strategy</h4>
+                <div class="form-group">
                   <label htmlFor="monthlyContribution">
                     Total Monthly Contribution:
                   </label>
@@ -126,13 +123,26 @@ class App extends Component {
                       this.setMonthlyContribution(evt.target.value)
                     }
                   />
-                  <DebtPlot
-                    debts={this.state.debts}
-                    monthlyContribution={this.state.monthlyContribution}
-                    width={600}
-                    height={300}
-                  />
-                </p>
+                </div>
+                <div className="btn-group">
+                  <button className="btn btn-primary active">Snowball</button>
+                  <button className="btn btn-primary">
+                    High Interest First
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-8">
+            <div className="card">
+              <div className="card-body">
+                <h3 className="card-title">Projections</h3>
+                <DebtPlot
+                  debts={this.state.debts}
+                  monthlyContribution={this.state.monthlyContribution}
+                  width={600}
+                  height={300}
+                />
               </div>
             </div>
 
@@ -149,6 +159,11 @@ class App extends Component {
             </div>
           </div>
         </div>
+        <footer className="row">
+          <p className="card-body">
+            Made by {authors[0]} &amp; {authors[1]} &copy; {year}
+          </p>
+        </footer>
         <DebtDialog
           isOpen={this.state.modalIsOpen}
           onClose={this.closeModal}
