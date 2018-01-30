@@ -1,31 +1,12 @@
 function getProperty(property) {
-  return this._changedProperties[property]
-    ? this._changedProperties[property].new
+  return this._changedProperties.hasOwnProperty(property)
+    ? this._changedProperties[property]
     : this._data[property];
 }
 
 function setProperty(property, value) {
-  if (!this._changedProperties[property]) {
-    this._changedProperties[property] = {
-      old: this._data[property],
-      new: null
-    };
-  }
-  this._changedProperties[property].new = value;
+  this._changedProperties[property] = value;
   this.isDirty = true;
-}
-
-/**
- * Gets a diff from a model's changedProperties hash
- * @param  {Model} model
- * @param  {String} type  - can be "new" or "old". "new" refers to uncommitted changes.
- * @return {[type]}       [description]
- */
-function getDiff(model, type = 'new') {
-  return Object.keys(model._changedProperties).reduce((result, key) => {
-    result[key] = model._changedProperties[key][type];
-    return result;
-  }, {});
 }
 
 /**
@@ -112,4 +93,3 @@ const ModelValidators = {
 };
 
 export default ModelValidators;
-export { getDiff };

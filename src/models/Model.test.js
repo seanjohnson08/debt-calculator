@@ -103,7 +103,7 @@ it('calls the store and is cleaned up when save() is called', () => {
   // Make a change to the model
   testModelInstance.integer = 123;
   expect(testModelInstance._data.integer).not.toBe(123);
-  expect(testModelInstance._changedProperties.integer.new).toBe(123);
+  expect(testModelInstance._changedProperties.integer).toBe(123);
 
   testModelInstance.store = store;
 

@@ -1,4 +1,4 @@
-import ModelValidators, { getDiff } from './ModelValidators';
+import ModelValidators from './ModelValidators';
 
 /**
  * Creates a base class for all models to extend.
@@ -17,7 +17,16 @@ class Model {
   constructor(properties) {
     this._assignValidators();
 
+    /**
+     * Model properties that has been verified to match what is in the data store
+     * @type {Object}
+     */
     this._data = {};
+
+    /**
+     * Model properties that have been changed client-side, if any
+     * @type {Object}
+     */
     this._changedProperties = {};
 
     /**
@@ -68,7 +77,7 @@ class Model {
     this.isDirty = false;
 
     // Merge all uncommitted changes
-    Object.assign(this._data, getDiff(this, 'new'));
+    Object.assign(this._data, this._changedProperties);
     this._changedProperties = {};
 
     if (this.store) {
@@ -84,8 +93,7 @@ class Model {
   }
 
   valueOf() {
-    const diff = getDiff(this, 'new');
-    return Object.assign({}, this._data, diff);
+    return Object.assign({}, this._data, this._changedProperties);
   }
 }
 
