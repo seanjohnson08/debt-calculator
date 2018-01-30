@@ -27,7 +27,7 @@ class DebtDialog extends Component {
 
   init() {
     const debt = this.props.debtObj || Store.createModel(Debt);
-    this.setState({ debt: debt });
+    this.setState({ debt });
   }
 
   tabSelected(index, label) {
@@ -35,12 +35,12 @@ class DebtDialog extends Component {
 
     let type = label;
     for (const prop in typeToName) {
-      if (typeToName[prop] == label) {
+      if (typeToName[prop] === label) {
         type = prop;
       }
     }
 
-    this.state.selectedType = type;
+    this.selectedType = type;
   }
 
   handleInputChange(event) {
@@ -57,7 +57,9 @@ class DebtDialog extends Component {
   }
 
   save() {
-    this.props.onSave(this.state.debt);
+    const { debt } = this.state;
+    debt.type = this.selectedType;
+    this.props.onSave(debt);
     this.close();
   }
 
@@ -150,9 +152,7 @@ class DebtDialog extends Component {
       />
     ];
 
-    const selectedType = this.state.selectedType;
-    const tabs = [];
-    DebtTypes.map((type, index) => {
+    const tabs = DebtTypes.map(type => {
       let content = [];
 
       switch (type) {
@@ -177,8 +177,17 @@ class DebtDialog extends Component {
           break;
       }
 
-      tabs.push(
-        <Tab label={typeToName[type] || type} key={type}>
+      return (
+        <Tab label={typeToName[type] || type} key={type} eventKey={type}>
+          <label htmlFor="description">Description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            className="form-control"
+            value={debt.description}
+            onChange={this.handleInputChange}
+          />
           {content}
         </Tab>
       );
@@ -195,7 +204,9 @@ class DebtDialog extends Component {
         }}
       >
         <form>
-          <Tabs onSelect={this.tabSelected}>{tabs}</Tabs>
+          <Tabs onSelect={this.tabSelected} selected={typeToName[debt.type]}>
+            {tabs}
+          </Tabs>
           <button className="btn btn-default" onClick={this.close}>
             close
           </button>
