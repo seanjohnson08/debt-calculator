@@ -22,13 +22,10 @@ function setProperty(property, value) {
  * @return {[type]}       [description]
  */
 function getDiff(model, type = 'new') {
-  return Object.entries(model._changedProperties).reduce(
-    (result, [key, value]) => {
-      result[key] = value[type];
-      return result;
-    },
-    {}
-  );
+  return Object.keys(model._changedProperties).reduce((result, key) => {
+    result[key] = model._changedProperties[key][type];
+    return result;
+  }, {});
 }
 
 /**
