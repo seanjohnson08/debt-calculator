@@ -112,7 +112,7 @@ class App extends Component {
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Payment Strategy</h4>
-                <div class="form-group">
+                <div className="form-group">
                   <label htmlFor="monthlyContribution">
                     Total Monthly Contribution:
                   </label>
@@ -149,12 +149,12 @@ class App extends Component {
             <div className="card">
               <div className="card-body">
                 <h3 className="card-title">Debt Summary</h3>
-                <p className="card-text">
+                <div className="card-text">
                   <dl className="dl-horizontal">
                     <dt>Total Current Debt</dt>
                     <dd>{formatCurrency(summary.totalCurrentDebt)}</dd>
                   </dl>
-                </p>
+                </div>
               </div>
             </div>
           </div>

@@ -26,7 +26,9 @@ class DebtDialog extends Component {
     const { name } = this;
     return (
       <div className="input-group">
-        <span className="input-group-addon">$</span>
+        <div className="input-group-prepend">
+          <div className="input-group-text">$</div>
+        </div>
         <input
           type="number"
           id={name}
