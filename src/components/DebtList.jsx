@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import DebtListItem from './DebtListItem.jsx';
 
 class DebtList extends Component {
+  constructor(props) {
+    super(...arguments);
+    this.className = props.className || '';
+  }
+
   render() {
     const DebtListItems = this.props.debts.map(debt => {
       return (
@@ -14,7 +19,7 @@ class DebtList extends Component {
       );
     });
 
-    return <ul className="list-group">{DebtListItems}</ul>;
+    return <ul className={'list-group ' + this.className}>{DebtListItems}</ul>;
   }
 }
 

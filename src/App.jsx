@@ -84,58 +84,70 @@ class App extends Component {
     const sean = <a href="http://linkedin.com/in/seantherockjohnson">Sean</a>;
 
     const authors = Math.random() > 0.5 ? [chris, sean] : [sean, chris];
+    const year = new Date().getFullYear();
 
     return (
       <div className="App container">
         <div className="row">
           <div className="col-md-4">
-            <DebtList
-              debts={this.state.debts}
-              editDebt={this.editDebt}
-              removeDebt={this.removeDebt}
-            />
-            <button className="btn btn-default" onClick={this.openModal}>
-              Add Debt
-            </button>
-            <button className="btn btn-default" onClick={this.clear}>
-              Clear Everything
-            </button>
+            <div className="card">
+              <DebtList
+                debts={this.state.debts}
+                editDebt={this.editDebt}
+                removeDebt={this.removeDebt}
+                className="list-group-flush"
+              />
+              <div className="card-body">
+                <button className="btn btn-primary" onClick={this.openModal}>
+                  Add Debt
+                </button>
+                &nbsp;
+                <button className="btn btn-danger" onClick={this.clear}>
+                  Clear Everything
+                </button>
+              </div>
+            </div>
+            <div className="card-body">
+              Made by {authors[0]} &amp; {authors[1]} &copy; {year}
+            </div>
           </div>
           <div className="col-md-8">
-            <div className="panel panel-default">
-              <div className="panel-heading">Projections</div>
-              <div className="panel-body">
-                <label htmlFor="monthlyContribution">
-                  Total Monthly Contribution:
-                </label>
-                <InputCurrency
-                  name="monthlyContribution"
-                  value={this.state.monthlyContribution}
-                  onChange={evt =>
-                    this.setMonthlyContribution(evt.target.value)
-                  }
-                />
-                <DebtPlot
-                  debts={this.state.debts}
-                  monthlyContribution={this.state.monthlyContribution}
-                  width={600}
-                  height={300}
-                />
+            <div className="card">
+              <div className="card-body">
+                <h3 className="card-title">Projections</h3>
+                <p className="card-text">
+                  <label htmlFor="monthlyContribution">
+                    Total Monthly Contribution:
+                  </label>
+                  <InputCurrency
+                    name="monthlyContribution"
+                    value={this.state.monthlyContribution}
+                    onChange={evt =>
+                      this.setMonthlyContribution(evt.target.value)
+                    }
+                  />
+                  <DebtPlot
+                    debts={this.state.debts}
+                    monthlyContribution={this.state.monthlyContribution}
+                    width={600}
+                    height={300}
+                  />
+                </p>
               </div>
             </div>
-            <div className="panel panel-default">
-              <div className="panel-heading">Debt Summary</div>
-              <div className="panel-body">
-                <dl className="dl-horizontal">
-                  <dt>Total Current Debt</dt>
-                  <dd>{formatCurrency(summary.totalCurrentDebt)}</dd>
-                </dl>
+
+            <div className="card">
+              <div className="card-body">
+                <h3 className="card-title">Debt Summary</h3>
+                <p className="card-text">
+                  <dl className="dl-horizontal">
+                    <dt>Total Current Debt</dt>
+                    <dd>{formatCurrency(summary.totalCurrentDebt)}</dd>
+                  </dl>
+                </p>
               </div>
             </div>
           </div>
-        </div>
-        <div className="well well-sm">
-          Made by {authors[0]} &amp; {authors[1]}
         </div>
         <DebtDialog
           isOpen={this.state.modalIsOpen}

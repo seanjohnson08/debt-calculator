@@ -53,6 +53,7 @@ class DebtList extends Component {
             <span className="glyphicon glyphicon-pencil" aria-hidden="true" />{' '}
             Edit
           </button>
+          &nbsp;
           <button
             className="btn btn-danger"
             onClick={() => this.props.removeDebt(debt)}
