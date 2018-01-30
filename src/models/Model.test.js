@@ -17,7 +17,7 @@ it('Validates Enums', () => {
   // Set a valid value
   testModelInstance.enum = 'enumValue';
 
-  expect(testModelInstance._data['enum']).toBe('enumValue');
+  expect(testModelInstance.enum).toBe('enumValue');
 
   // Set an invalid value
   expect(() => {
@@ -31,7 +31,7 @@ it('Validates Booleans', () => {
   // Set a valid value
   testModelInstance.boolean = true;
 
-  expect(testModelInstance._data['boolean']).toBe(true);
+  expect(testModelInstance.boolean).toBe(true);
 
   // Set an invalid value
   expect(() => {
@@ -45,7 +45,7 @@ it('Validates Integers', () => {
   // Set a valid value
   testModelInstance.integer = 123;
 
-  expect(testModelInstance._data['integer']).toBe(123);
+  expect(testModelInstance.integer).toBe(123);
 
   // Set an invalid value
   expect(() => {
@@ -58,11 +58,11 @@ it('Converts strings to Integer when applicable', () => {
 
   testModelInstance.integer = '123';
 
-  expect(testModelInstance._data['integer']).toBe(123);
+  expect(testModelInstance.integer).toBe(123);
 
   testModelInstance.integer = '';
 
-  expect(testModelInstance._data['integer']).toBe(0);
+  expect(testModelInstance.integer).toBe(0);
 
   expect(() => {
     testModelInstance.integer = 'sean';
@@ -75,7 +75,7 @@ it('Validates Strings', () => {
   // Set a valid value
   testModelInstance.string = 'string value';
 
-  expect(testModelInstance._data['string']).toBe('string value');
+  expect(testModelInstance.string).toBe('string value');
 
   // Set an invalid value
   expect(() => {
@@ -94,11 +94,17 @@ it('valueOf returns internal state', () => {
   expect(testModelInstance.valueOf()).toEqual(state);
 });
 
-it('calls the store and is marked clean when save() is called', () => {
+it('calls the store and is cleaned up when save() is called', () => {
   const commit = jest.fn();
   const store = { commit };
 
   const testModelInstance = new TestModel();
+
+  // Make a change to the model
+  testModelInstance.integer = 123;
+  expect(testModelInstance._data.integer).not.toBe(123);
+  expect(testModelInstance._changedProperties.integer.new).toBe(123);
+
   testModelInstance.store = store;
 
   // New models should be dirty until saved
@@ -106,6 +112,9 @@ it('calls the store and is marked clean when save() is called', () => {
 
   // Save the model
   testModelInstance.save();
+
+  expect(testModelInstance._data.integer).toBe(123);
+  expect(testModelInstance._changedProperties).toEqual({});
   expect(store.commit).toHaveBeenCalled();
   expect(testModelInstance.isDirty).toBe(false);
 });
@@ -123,4 +132,19 @@ it('tells the store to remove the model when destroy() is called', () => {
 
   expect(testModelInstance.destroyed).toBeTruthy();
   expect(destroyModel).toHaveBeenCalled();
+});
+
+it('reverts all changes when revert() is called', () => {
+  const testModelInstance = new TestModel();
+
+  testModelInstance.integer = 123;
+
+  expect(testModelInstance.integer).toBe(123);
+  expect(testModelInstance.isDirty).toBe(true);
+
+  testModelInstance.revert();
+
+  expect(testModelInstance.integer).not.toBe(123);
+  expect(testModelInstance._changedProperties).toEqual({});
+  expect(testModelInstance.isDirty).toBe(false);
 });

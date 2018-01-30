@@ -1,3 +1,5 @@
+import ModelValidators, { getDiff } from './ModelValidators';
+
 /**
  * Creates a base class for all models to extend.
  * @class Model
@@ -16,6 +18,7 @@ class Model {
     this._assignValidators();
 
     this._data = {};
+    this._changedProperties = {};
 
     /**
      * A model is considered "isDirty" when it has not been persisted or has been modified without being persisted.
@@ -48,8 +51,26 @@ class Model {
     return {};
   }
 
+  /**
+   * Undo any client-side changes to the model
+   * @return {void}
+   */
+  revert() {
+    this.isDirty = false;
+    this._changedProperties = {};
+  }
+
+  /**
+   * Commit any client-side changes and persist them to the data store
+   * @return {void}
+   */
   save() {
     this.isDirty = false;
+
+    // Merge all uncommitted changes
+    Object.assign(this._data, getDiff(this, 'new'));
+    this._changedProperties = {};
+
     if (this.store) {
       this.store.commit();
     }
@@ -63,93 +84,12 @@ class Model {
   }
 
   valueOf() {
-    return this._data;
+    const diff = getDiff(this, 'new');
+    return Object.assign({}, this._data, diff);
   }
 }
 
-/**
- * Creates a higher-order function that returns a property descriptor
- * that defines a getter (to retreive from hidden _data state)
- * and a setter (that validates values are valid before assigning to _data)
- *
- * @param  {function} assertion - A function that accepts 1 argument (value)
- * and returns true or false if the value is valid.
- * @param {function} [translator] - Will attempt to convert values before storing
- * @return {function} - A function that returns a property descriptor.
- */
-function createValidator(assertion, translator) {
-  return propertyName => ({
-    get() {
-      return this._data[propertyName];
-    },
-    set(value) {
-      let _value = value;
-      if (translator) {
-        _value = translator(value);
-      }
-      if (!assertion(_value)) {
-        throw new Error(`Invalid value for ${propertyName}: ${_value}`);
-      }
-      this.isDirty = true;
-      this._data[propertyName] = _value;
-    }
-  });
-}
-
-/* Validators */
-Object.assign(Model, {
-  /**
-   * Boolean data type
-   * @memberOf Model
-   */
-  Boolean: createValidator(value => typeof value === 'boolean'),
-
-  /**
-   * Integer data type
-   * @memberof Model
-   */
-  Integer: createValidator(
-    value => Number.isInteger(value),
-    value => {
-      if (typeof value === 'string') {
-        if (!value.length) {
-          return 0;
-        }
-        return parseInt(value, 10);
-      }
-      return value;
-    }
-  ),
-
-  Number: createValidator(
-    value => typeof value === 'number' && !Number.isNaN(value),
-    value => {
-      if (typeof value === 'string') {
-        if (!value.length) {
-          return 0;
-        }
-        return parseFloat(value);
-      }
-      return value;
-    }
-  ),
-
-  /**
-   * String data type
-   * @memberof Model
-   */
-  String: createValidator(value => typeof value === 'string'),
-
-  /**
-   * Enum data type
-   * @param {Array} enumValues - a list possible values for the enum.
-   * @memberof Model
-   * @example
-   * myProperty: Model.Enum(['value1', 'value2'])
-   */
-  Enum(enumValues) {
-    return createValidator(value => enumValues.includes(value));
-  }
-});
+// Merge validators onto Model class as static
+Object.assign(Model, ModelValidators);
 
 export default Model;

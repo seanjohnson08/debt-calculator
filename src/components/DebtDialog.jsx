@@ -53,12 +53,15 @@ class DebtDialog extends Component {
   }
 
   close() {
+    this.state.debt.revert();
     this.props.onClose();
   }
 
   save() {
     const { debt } = this.state;
-    debt.type = this.selectedType;
+    if (this.selectedType) {
+      debt.type = this.selectedType;
+    }
     this.props.onSave(debt);
     this.close();
   }
