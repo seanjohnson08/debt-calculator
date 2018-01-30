@@ -9,6 +9,8 @@ class DebtDialog extends Component {
   constructor() {
     super();
 
+    this.state = {};
+
     this.typeToName = {
       mortgage: 'Home Mortgage',
       car: 'Car Loan',
@@ -26,8 +28,6 @@ class DebtDialog extends Component {
   init() {
     const debt = this.props.debtObj || Store.createModel(Debt);
     this.setState({ debt: debt });
-    console.log(debt);
-    this.typeChange(debt.type);
   }
 
   tabSelected(index, label) {
@@ -63,16 +63,6 @@ class DebtDialog extends Component {
 
   render() {
     const typeToName = this.typeToName;
-
-    // const debtTypesOptions = DebtTypes.map((type,index) => {
-    //   const href = '#' + type;
-    //   return (
-    //     <li className="nav-item" value={type} key={index}>
-    //       <a className="nav-link" href={href} data-toggle="tab">{typeToName[type] || type}</a>
-    //     </li>
-    //   );
-    // });
-
     const inputs = {};
     const debt = this.state.debt || this.state;
 
