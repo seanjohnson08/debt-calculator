@@ -26,7 +26,7 @@ class DebtDialog extends Component {
   }
 
   init() {
-    const debt = this.props.debtObj || Store.createModel(Debt);
+    const debt = this.props.debt || Store.createModel(Debt);
     this.setState({ debt });
   }
 
