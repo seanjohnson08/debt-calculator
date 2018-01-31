@@ -75,7 +75,7 @@ class DebtDialog extends Component {
 
     return {
       description: (
-        <React.Fragment>
+        <React.Fragment key="description">
           <label htmlFor="description">Description</label>
           <input
             type="text"
@@ -89,7 +89,7 @@ class DebtDialog extends Component {
       ),
 
       lifetime: (
-        <React.Fragment>
+        <React.Fragment key="lifetime">
           <label htmlFor="lifetime">Lifetime</label>
           <div className="input-group">
             <input
@@ -109,7 +109,7 @@ class DebtDialog extends Component {
         </React.Fragment>
       ),
       principle: (
-        <React.Fragment>
+        <React.Fragment key="principle">
           <label htmlFor="principle">Principle</label>
           <InputCurrency
             name="principle"
@@ -121,7 +121,7 @@ class DebtDialog extends Component {
       ),
 
       balance: (
-        <React.Fragment>
+        <React.Fragment key="balance">
           <label htmlFor="balance">Balance</label>
           <InputCurrency
             name="balance"
@@ -132,7 +132,7 @@ class DebtDialog extends Component {
       ),
 
       elapsedTime: (
-        <React.Fragment>
+        <React.Fragment key="elapsedTime">
           <label htmlFor="elapsedTime">Elapsed Time</label>
           <div className="input-group">
             <input
@@ -153,7 +153,7 @@ class DebtDialog extends Component {
       ),
 
       rate: (
-        <React.Fragment>
+        <React.Fragment key="rate">
           <label htmlFor="rate">Rate</label>
           <div className="input-group">
             <input
@@ -173,7 +173,7 @@ class DebtDialog extends Component {
       ),
 
       minimumMonthlyPayment: (
-        <React.Fragment>
+        <React.Fragment key="minimumMonthlyPayment">
           <label htmlFor="minimumMonthlyPayment">Minimum Payment</label>,
           <InputCurrency
             name="minimumMonthlyPayment"
