@@ -1,7 +1,13 @@
 import Store from './Store';
 import Model from '../models/Model';
 
-class CustomModel extends Model {}
+class CustomModel extends Model {
+  properties() {
+    return {
+      id: Model.Number
+    };
+  }
+}
 
 afterEach(() => {
   Store.clear();

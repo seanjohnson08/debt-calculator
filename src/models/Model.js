@@ -57,7 +57,9 @@ class Model {
   }
 
   properties() {
-    return {};
+    return {
+      id: ModelValidators.Number
+    };
   }
 
   /**

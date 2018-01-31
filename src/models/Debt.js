@@ -9,6 +9,7 @@ class Debt extends Model {
 
   properties() {
     return {
+      id: Model.Number,
       description: Model.String,
       type: Model.Enum(DebtTypes),
       lifetime: Model.Integer,
