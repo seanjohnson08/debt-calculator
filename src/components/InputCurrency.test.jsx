@@ -11,12 +11,15 @@ test('InputCurrency stores internal value as integer', () => {
 test('OnChange is fired (and outputs integer) when input is modified', () => {
   const onChange = jest.fn();
 
-  const component = shallow(<InputCurrency onChange={onChange} />);
+  const component = shallow(
+    <InputCurrency name="namedInput" onChange={onChange} />
+  );
 
   const input = component.find('input');
 
   input.simulate('change', { target: { value: '123.45' } });
 
   expect(onChange).toBeCalled();
+  expect(onChange.mock.calls[0][0].target.name).toEqual('namedInput');
   expect(onChange.mock.calls[0][0].target.value).toEqual(12345);
 });

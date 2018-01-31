@@ -8,13 +8,14 @@ class DebtDialog extends Component {
   }
 
   handleInputChange(event) {
+    const { name } = this.props;
     let { value } = event.target;
 
     // TODO: double check this formatting, see if it can be improved.
 
-    const str = value || '';
+    const str = value || 0;
     value = parseInt(str.replace(/\D/g, ''), 10);
-    this.props.onChange({ target: { value } });
+    this.props.onChange({ target: { name, value } });
   }
 
   render() {

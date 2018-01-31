@@ -27,15 +27,14 @@ class DebtDialog extends Component {
 
   init() {
     const debt = this.props.debt || Store.createModel(Debt);
+    this.selectedType = debt.type;
     this.setState({ debt });
   }
 
   tabSelected(index, label) {
-    const typeToName = this.typeToName;
-
     let type = label;
-    for (const prop in typeToName) {
-      if (typeToName[prop] === label) {
+    for (const prop in this.typeToName) {
+      if (this.typeToName[prop] === label) {
         type = prop;
       }
     }
@@ -185,44 +184,47 @@ class DebtDialog extends Component {
     };
   }
 
-  render() {
-    const typeToName = this.typeToName;
+  /**
+   * Gets the content of all tabs, 1 tab for each debt type
+   * @return {Array[Tab]}
+   */
+  getTabsForRender() {
     let inputs = this.getInputsForRender();
-    const { debt } = this.state;
 
-    const tabs = DebtTypes.map(type => {
-      let content = [];
+    return DebtTypes.map(type => {
+      let fields;
 
       switch (type) {
         case 'card':
-          for (const prop in inputs) {
-            if (
-              [
-                'balance',
-                'elapsedTime',
-                'rate',
-                'minimumMonthlyPayment'
-              ].includes(prop)
-            ) {
-              content.push(inputs[prop]);
-            }
-          }
+          fields = [
+            'description',
+            'balance',
+            'elapsedTime',
+            'rate',
+            'minimumMonthlyPayment'
+          ];
           break;
         default:
-          for (const prop in inputs) {
-            content.push(inputs[prop]);
-          }
+          // Show all inputs
+          fields = Object.keys(inputs);
           break;
       }
 
+      const content = fields.map(field => inputs[field]);
+
       return (
-        <Tab label={typeToName[type] || type} key={type} eventKey={type}>
+        <Tab label={this.typeToName[type] || type} key={type} eventKey={type}>
           {content}
         </Tab>
       );
     });
+  }
 
-    const selectedTab = debt ? typeToName[debt.type] : undefined;
+  render() {
+    let tabs = this.getTabsForRender();
+    const { debt } = this.state;
+
+    const selectedTab = debt ? this.typeToName[this.selectedType] : undefined;
 
     return (
       <Modal

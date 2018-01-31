@@ -109,6 +109,7 @@ it('calls the store and is cleaned up when save() is called', () => {
 
   // New models should be dirty until saved
   expect(testModelInstance.isDirty).toBe(true);
+  expect(testModelInstance.isNew).toBe(true);
 
   // Save the model
   testModelInstance.save();
@@ -117,6 +118,7 @@ it('calls the store and is cleaned up when save() is called', () => {
   expect(testModelInstance._changedProperties).toEqual({});
   expect(store.commit).toHaveBeenCalled();
   expect(testModelInstance.isDirty).toBe(false);
+  expect(testModelInstance.isNew).toBe(false);
 });
 
 it('tells the store to remove the model when destroy() is called', () => {
@@ -137,6 +139,7 @@ it('tells the store to remove the model when destroy() is called', () => {
 it('reverts all changes when revert() is called', () => {
   const testModelInstance = new TestModel();
 
+  testModelInstance.isNew = false; // Pretend that the model is persisted
   testModelInstance.integer = 123;
 
   expect(testModelInstance.integer).toBe(123);

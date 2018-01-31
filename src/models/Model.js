@@ -35,6 +35,12 @@ class Model {
      */
     this.isDirty = true;
 
+    /**
+     * A model is considered "isNew" when it has been created without being saved
+     * @type {Boolean}
+     */
+    this.isNew = true;
+
     Object.assign(this._data, this.defaults(), properties);
   }
 
@@ -67,7 +73,9 @@ class Model {
    * @return {void}
    */
   revert() {
-    this.isDirty = false;
+    if (!this.isNew) {
+      this.isDirty = false;
+    }
     this._changedProperties = {};
   }
 
@@ -76,6 +84,7 @@ class Model {
    * @return {void}
    */
   save() {
+    this.isNew = false;
     this.isDirty = false;
 
     // Merge all uncommitted changes
