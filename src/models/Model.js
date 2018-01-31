@@ -35,7 +35,7 @@ class Model {
      */
     this.isDirty = true;
 
-    Object.assign(this, this.defaults(), properties);
+    Object.assign(this._data, this.defaults(), properties);
   }
 
   _assignValidators() {

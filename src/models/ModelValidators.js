@@ -5,8 +5,10 @@ function getProperty(property) {
 }
 
 function setProperty(property, value) {
-  this._changedProperties[property] = value;
-  this.isDirty = true;
+  if (this[property] !== value) {
+    this._changedProperties[property] = value;
+    this.isDirty = true;
+  }
 }
 
 /**
