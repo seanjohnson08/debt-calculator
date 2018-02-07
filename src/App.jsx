@@ -9,6 +9,10 @@ import DebtPlot from './components/DebtPlot';
 import InputCurrency from './components/InputCurrency';
 import formatCurrency from './helpers/Currency';
 
+// Import icons
+import PlusIcon from 'react-icons/lib/ti/plus';
+import TrashIcon from 'react-icons/lib/ti/trash';
+
 class App extends Component {
   constructor() {
     super();
@@ -102,10 +106,10 @@ class App extends Component {
                   className="btn btn-primary mr-2"
                   onClick={this.openModal}
                 >
-                  Add Debt
+                  <PlusIcon /> Add Debt
                 </button>
                 <button className="btn btn-danger" onClick={this.clear}>
-                  Clear Everything
+                  <TrashIcon /> Clear Everything
                 </button>
               </div>
             </div>

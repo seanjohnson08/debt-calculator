@@ -5,6 +5,19 @@ import Debt, { DebtTypes } from '../models/Debt';
 import Store from '../services/Store';
 import InputCurrency from './InputCurrency';
 
+// Import icons
+import HomeIcon from 'react-icons/lib/md/home';
+import AutoIcon from 'react-icons/lib/md/directions-car';
+import BriefCaseIcon from 'react-icons/lib/md/business-center';
+import CreditCardIcon from 'react-icons/lib/md/credit-card';
+
+const iconTypes = {
+  mortgage: <HomeIcon />,
+  car: <AutoIcon />,
+  loan: <BriefCaseIcon />,
+  card: <CreditCardIcon />
+};
+
 class DebtDialog extends Component {
   constructor() {
     super();
@@ -214,6 +227,7 @@ class DebtDialog extends Component {
 
       return (
         <Tab label={this.typeToName[type] || type} key={type} eventKey={type}>
+          <div>{iconTypes[type]}</div>
           {content}
         </Tab>
       );
