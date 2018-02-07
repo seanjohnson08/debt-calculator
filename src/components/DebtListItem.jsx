@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import Currency from '../helpers/Currency';
 
+// Import icons
+import HomeIcon from 'react-icons/lib/md/home';
+import AutoIcon from 'react-icons/lib/md/directions-car';
+import BriefCaseIcon from 'react-icons/lib/md/business-center';
+import CreditCardIcon from 'react-icons/lib/md/credit-card';
+import TrashIcon from 'react-icons/lib/ti/trash';
+import PencilIcon from 'react-icons/lib/ti/pencil';
+
 const iconTypes = {
-  mortgage: 'home',
-  car: 'road',
-  loan: 'briefcase',
-  card: 'credit-card'
+  mortgage: <HomeIcon />,
+  car: <AutoIcon />,
+  loan: <BriefCaseIcon />,
+  card: <CreditCardIcon />
 };
 
 class DebtList extends Component {
@@ -42,7 +50,7 @@ class DebtList extends Component {
     return (
       <li className="list-group-item">
         <h4>
-          <span className={'glyphicon glyphicon-' + icon} /> {debt.description}
+          {icon} {debt.description}
         </h4>
         {details}
         <div className="btn-toolbar">
@@ -50,15 +58,13 @@ class DebtList extends Component {
             className="btn btn-primary mr-2"
             onClick={() => this.props.editDebt(debt)}
           >
-            <span className="glyphicon glyphicon-pencil" aria-hidden="true" />{' '}
-            Edit
+            <PencilIcon /> Edit
           </button>
           <button
             className="btn btn-danger"
             onClick={() => this.props.removeDebt(debt)}
           >
-            <span className="glyphicon glyphicon-trash" aria-hidden="true" />{' '}
-            Delete
+            <TrashIcon /> Delete
           </button>
         </div>
       </li>
