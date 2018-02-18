@@ -1,25 +1,47 @@
 import React, { Component } from 'react';
 import { formatCurrencyNumber } from '../helpers/Currency';
+import { Decimal } from 'decimal.js-light';
 
 class DebtDialog extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.submitPress = this.submitPress.bind(this);
+    this.submit = this.submit.bind(this);
+
+    this.state = {
+      value: props.value
+    };
   }
 
   handleInputChange(event) {
+    let { value } = event.target;
+
+    this.setState({ value });
+  }
+
+  submitPress(event) {
+    const { key } = event;
+
+    if (key === 'Enter') {
+      this.submit(event);
+    }
+  }
+
+  submit(event) {
     const { name } = this.props;
     let { value } = event.target;
 
-    // TODO: double check this formatting, see if it can be improved.
-
     const str = value || 0;
-    value = parseInt(str.replace(/\D/g, ''), 10);
+
+    value = new Decimal(str).toFixed(2);
+
+    this.setState({ value });
     this.props.onChange({ target: { name, value } });
   }
 
   render() {
-    const { value } = this.props;
+    const { value } = this.state;
     const { name } = this;
     return (
       <div className="input-group">
@@ -27,13 +49,15 @@ class DebtDialog extends Component {
           <div className="input-group-text">$</div>
         </div>
         <input
-          type="number"
+          type="text"
           id={name}
           name={name}
           className="form-control"
           min="0"
-          value={formatCurrencyNumber(value)}
+          value={value || ''}
           onChange={this.handleInputChange}
+          onKeyPress={this.submitPress}
+          onBlur={this.submit}
         />
       </div>
     );
