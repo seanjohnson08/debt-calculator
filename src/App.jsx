@@ -9,16 +9,11 @@ import DebtPlot from './components/DebtPlot';
 import InputCurrency from './components/InputCurrency';
 import formatCurrency from './helpers/Currency';
 import CalculateResults from './helpers/CalculateResults';
+import { STRATEGIES } from './helpers/Constants';
 
 // Import icons
 import PlusIcon from 'react-icons/lib/ti/plus';
 import TrashIcon from 'react-icons/lib/ti/trash';
-
-const STRATEGIES = {
-  SNOWBALL: 1,
-  HIGH_INTEREST: 2,
-  BALANCED: 3
-};
 
 class App extends Component {
   constructor() {
@@ -32,27 +27,14 @@ class App extends Component {
       monthlyContribution: 30000,
       strategy: STRATEGIES.SNOWBALL
     };
-    this.calculateResults(true);
-  }
-
-  calculateResults(isInit = false) {
-    const { debts, monthlyContribution, strategy } = this.state;
-    const results = CalculateResults(debts, monthlyContribution, strategy);
-    if (isInit) {
-      Object.assign(this.state, results);
-    } else {
-      this.setState(results);
-    }
   }
 
   setMonthlyContribution(value) {
     this.setState({ monthlyContribution: value });
-    this.calculateResults();
   }
 
   setStrategy(strategy) {
     this.setState({ strategy });
-    this.calculateResults();
   }
 
   openModal(debt) {
@@ -74,7 +56,6 @@ class App extends Component {
 
     debt.save();
     this.setState({ debts });
-    this.calculateResults();
   }
 
   removeDebt(debt) {
@@ -82,7 +63,6 @@ class App extends Component {
     debts = debts.filter(_debt => _debt !== debt);
     debt.destroy();
     this.setState({ debts });
-    this.calculateResults();
   }
 
   clear() {
@@ -108,7 +88,13 @@ class App extends Component {
     const authors = this.authorOrder > 0.5 ? [chris, sean] : [sean, chris];
     const year = new Date().getFullYear();
 
-    const strategy = this.state.strategy;
+    const { debts, monthlyContribution, strategy } = this.state;
+    const { graphData } = CalculateResults(
+      debts,
+      monthlyContribution,
+      strategy
+    );
+
     const snowballActive = strategy === STRATEGIES.SNOWBALL ? ' active' : '';
     const highInterestActive =
       strategy === STRATEGIES.HIGH_INTEREST ? ' active' : '';
@@ -174,7 +160,7 @@ class App extends Component {
                 <h3 className="card-title">Projections</h3>
                 <DebtPlot
                   debts={this.state.debts}
-                  graphData={this.state.graphData}
+                  graphData={graphData}
                   width={600}
                   height={300}
                 />

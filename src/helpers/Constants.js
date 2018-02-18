@@ -1,0 +1,5 @@
+export const STRATEGIES = {
+  SNOWBALL: 1,
+  HIGH_INTEREST: 2,
+  BALANCED: 3
+};
