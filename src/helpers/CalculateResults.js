@@ -6,7 +6,7 @@ export default function calculateResults(debts, monthlyContribution, strategy) {
   for (let i = 0; i <= 10; i++) {
     const projectedPrinciples = debts.reduce((accum, debt) => {
       accum[debt.id] = Math.max(
-        (totalWithInterest(debt, i) - monthlyContribution / 100 * i).toFixed(2),
+        (totalWithInterest(debt, i) - monthlyContribution * i).toFixed(2),
         0
       );
       return accum;

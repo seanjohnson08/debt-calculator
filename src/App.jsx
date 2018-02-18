@@ -30,6 +30,8 @@ class App extends Component {
   }
 
   setMonthlyContribution(value) {
+    // We need to format the value string into a currency
+
     this.setState({ monthlyContribution: value });
   }
 
