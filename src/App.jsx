@@ -33,14 +33,6 @@ class App extends Component {
       strategy: STRATEGIES.SNOWBALL
     };
     this.calculateResults(true);
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.addDebt = this.addDebt.bind(this);
-    this.editDebt = this.editDebt.bind(this);
-    this.saveDebt = this.saveDebt.bind(this);
-    this.clear = this.clear.bind(this);
-    this.removeDebt = this.removeDebt.bind(this);
   }
 
   calculateResults(isInit = false) {
@@ -60,24 +52,16 @@ class App extends Component {
 
   setStrategy(strategy) {
     this.setState({ strategy });
+    this.calculateResults();
   }
 
-  openModal() {
-    this.setState({ modalIsOpen: true });
+  openModal(debt) {
+    this.setState({ debt, modalIsOpen: true });
   }
 
   closeModal() {
     // Need to clear the working debt when modal is closed
     this.setState({ modalIsOpen: false, debt: null });
-  }
-
-  addDebt() {
-    this.openModal();
-  }
-
-  editDebt(debt) {
-    this.setState({ debt });
-    this.openModal();
   }
 
   saveDebt(debt) {
@@ -136,15 +120,18 @@ class App extends Component {
             <div className="card">
               <DebtList
                 debts={this.state.debts}
-                editDebt={this.editDebt}
-                removeDebt={this.removeDebt}
+                editDebt={debt => this.openModal(debt)}
+                removeDebt={debt => this.removeDebt(debt)}
                 className="list-group-flush"
               />
               <div className="card-body">
-                <button className="btn btn-primary mr-2" onClick={this.addDebt}>
+                <button
+                  className="btn btn-primary mr-2"
+                  onClick={() => this.openModal()}
+                >
                   <PlusIcon /> Add Debt
                 </button>
-                <button className="btn btn-danger" onClick={this.clear}>
+                <button className="btn btn-danger" onClick={() => this.clear()}>
                   <TrashIcon /> Clear Everything
                 </button>
               </div>
@@ -214,9 +201,9 @@ class App extends Component {
         </footer>
         <DebtDialog
           isOpen={this.state.modalIsOpen}
-          onClose={this.closeModal}
+          onClose={() => this.closeModal()}
           debt={this.state.debt}
-          onSave={this.saveDebt}
+          onSave={debt => this.saveDebt(debt)}
         />
       </div>
     );
