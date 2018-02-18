@@ -7,52 +7,13 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
-import { Decimal } from 'decimal.js-light';
-
-function totalWithInterest(debt, months = 0) {
-  const rate = new Decimal(debt.rate);
-
-  let totalRate = new Decimal(
-    rate
-      .div(1200)
-      .add(1)
-      .pow(months)
-  );
-  return new Decimal(debt.principle).div(100).mul(totalRate);
-
-  // return debt.principle / 100 * (1 + (debt.rate / 1200)) ** months;
-  // return debt.principle / 100 * debt.rate ** months;
-}
 
 class DebtPlot extends Component {
   constructor(props) {
     super();
   }
-  calculateProjections() {
-    const { monthlyContribution } = this.props;
-    this.data = [];
-    for (let i = 0; i <= 10; i++) {
-      const projectedPrinciples = this.props.debts.reduce((accum, debt) => {
-        accum[debt.id] = Math.max(
-          (totalWithInterest(debt, i) - monthlyContribution / 100 * i).toFixed(
-            2
-          ),
-          0
-        );
-        return accum;
-      }, {});
-
-      const dataPoint = Object.assign(projectedPrinciples, {
-        label: `Month ${i}`
-      });
-
-      this.data.push(dataPoint);
-    }
-  }
 
   render() {
-    this.calculateProjections();
-
     const fillColors = ['#8884d8', '#82ca9d', '#ffc658'];
     const strokeColors = ['#8884d8', '#82ca9d', '#ffc658'];
     const areas = this.props.debts.map((debt, i) => {
@@ -72,7 +33,7 @@ class DebtPlot extends Component {
       <AreaChart
         width={this.props.width}
         height={this.props.height}
-        data={this.data}
+        data={this.props.graphData}
         className={this.props.className}
       >
         <XAxis dataKey="label" />

@@ -8,6 +8,7 @@ import DebtDialog from './components/DebtDialog';
 import DebtPlot from './components/DebtPlot';
 import InputCurrency from './components/InputCurrency';
 import formatCurrency from './helpers/Currency';
+import CalculateResults from './helpers/CalculateResults';
 
 // Import icons
 import PlusIcon from 'react-icons/lib/ti/plus';
@@ -22,6 +23,7 @@ class App extends Component {
       debts: Store.getAll(Debt),
       monthlyContribution: 30000
     };
+    this.calculateResults(true);
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -31,8 +33,19 @@ class App extends Component {
     this.removeDebt = this.removeDebt.bind(this);
   }
 
+  calculateResults(isInit = false) {
+    const { debts, monthlyContribution, strategy } = this.state;
+    const results = CalculateResults(debts, monthlyContribution, strategy);
+    if (isInit) {
+      Object.assign(this.state, results);
+    } else {
+      this.setState(results);
+    }
+  }
+
   setMonthlyContribution(value) {
     this.setState({ monthlyContribution: value });
+    this.calculateResults();
   }
 
   openModal() {
@@ -58,6 +71,7 @@ class App extends Component {
 
     debt.save();
     this.setState({ debts });
+    this.calculateResults();
   }
 
   removeDebt(debt) {
@@ -65,6 +79,7 @@ class App extends Component {
     debts = debts.filter(_debt => _debt !== debt);
     debt.destroy();
     this.setState({ debts });
+    this.calculateResults();
   }
 
   clear() {
@@ -143,7 +158,7 @@ class App extends Component {
                 <h3 className="card-title">Projections</h3>
                 <DebtPlot
                   debts={this.state.debts}
-                  monthlyContribution={this.state.monthlyContribution}
+                  graphData={this.state.graphData}
                   width={600}
                   height={300}
                 />
