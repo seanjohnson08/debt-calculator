@@ -14,14 +14,23 @@ import CalculateResults from './helpers/CalculateResults';
 import PlusIcon from 'react-icons/lib/ti/plus';
 import TrashIcon from 'react-icons/lib/ti/trash';
 
+const STRATEGIES = {
+  SNOWBALL: 1,
+  HIGH_INTEREST: 2,
+  BALANCED: 3
+};
+
 class App extends Component {
   constructor() {
     super();
 
+    this.authorOrder = Math.random();
+
     this.state = {
       modalIsOpen: false,
       debts: Store.getAll(Debt),
-      monthlyContribution: 30000
+      monthlyContribution: 30000,
+      strategy: STRATEGIES.SNOWBALL
     };
     this.calculateResults(true);
 
@@ -47,6 +56,10 @@ class App extends Component {
   setMonthlyContribution(value) {
     this.setState({ monthlyContribution: value });
     this.calculateResults();
+  }
+
+  setStrategy(strategy) {
+    this.setState({ strategy });
   }
 
   openModal() {
@@ -108,8 +121,13 @@ class App extends Component {
     const chris = <a href="http://linkedin.com/in/christopher-banks">Chris</a>;
     const sean = <a href="http://linkedin.com/in/seantherockjohnson">Sean</a>;
 
-    const authors = Math.random() > 0.5 ? [chris, sean] : [sean, chris];
+    const authors = this.authorOrder > 0.5 ? [chris, sean] : [sean, chris];
     const year = new Date().getFullYear();
+
+    const strategy = this.state.strategy;
+    const snowballActive = strategy === STRATEGIES.SNOWBALL ? ' active' : '';
+    const highInterestActive =
+      strategy === STRATEGIES.HIGH_INTEREST ? ' active' : '';
 
     return (
       <div className="App container">
@@ -147,8 +165,16 @@ class App extends Component {
                   />
                 </div>
                 <div className="btn-group">
-                  <button className="btn btn-primary active">Snowball</button>
-                  <button className="btn btn-primary">
+                  <button
+                    className={'btn btn-primary' + snowballActive}
+                    onClick={() => this.setStrategy(STRATEGIES.SNOWBALL)}
+                  >
+                    Snowball
+                  </button>
+                  <button
+                    className={'btn btn-primary' + highInterestActive}
+                    onClick={() => this.setStrategy(STRATEGIES.HIGH_INTEREST)}
+                  >
                     High Interest First
                   </button>
                 </div>
