@@ -27,6 +27,7 @@ class App extends Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.addDebt = this.addDebt.bind(this);
     this.editDebt = this.editDebt.bind(this);
     this.saveDebt = this.saveDebt.bind(this);
     this.clear = this.clear.bind(this);
@@ -53,7 +54,12 @@ class App extends Component {
   }
 
   closeModal() {
-    this.setState({ modalIsOpen: false });
+    // Need to clear the working debt when modal is closed
+    this.setState({ modalIsOpen: false, debt: null });
+  }
+
+  addDebt() {
+    this.openModal();
   }
 
   editDebt(debt) {
@@ -117,10 +123,7 @@ class App extends Component {
                 className="list-group-flush"
               />
               <div className="card-body">
-                <button
-                  className="btn btn-primary mr-2"
-                  onClick={this.openModal}
-                >
+                <button className="btn btn-primary mr-2" onClick={this.addDebt}>
                   <PlusIcon /> Add Debt
                 </button>
                 <button className="btn btn-danger" onClick={this.clear}>
