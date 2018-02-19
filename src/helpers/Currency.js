@@ -19,13 +19,4 @@ function formatCurrency(numberValue) {
   return `$${formatted}`;
 }
 
-export function formatCurrencyNumber(numberValue) {
-  const formatted = formatBaseCurrency(numberValue);
-  if (numberValue < 100) {
-    return '0' + formatted;
-  } else {
-    return formatted;
-  }
-}
-
 export default formatCurrency;

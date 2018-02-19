@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { formatCurrencyNumber } from '../helpers/Currency';
 import { Decimal } from 'decimal.js-light';
 
 class DebtDialog extends Component {
