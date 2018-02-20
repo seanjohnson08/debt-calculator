@@ -60,7 +60,7 @@ class Store {
     }
 
     this.dataStore = data.map(([modelClass, data]) => {
-      const model = new modelTypes[modelClass](data);
+      const model = new modelTypes[modelClass](data, true);
 
       model.store = this;
       // The model is clean since it is coming from the source of truth

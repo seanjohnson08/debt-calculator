@@ -1,18 +1,12 @@
-function formatBaseCurrency(numberValue) {
-  const amount = `${numberValue}`; // Convert to string
-  const dollars = amount.slice(0, -2);
-  const cents = amount.slice(-2);
-  return `${dollars}.${cents}`;
-}
-
 /**
  * Returns a formatted currency.
  * Ex: 100000 -> $1,000.00
- * @param  {Number} numberValue - An integer representing the number of cents
+ * @param  {Decimal} decimalValue - A Decimal representing the number of cents
  * @return {String} The formatted result
  */
-function formatCurrency(numberValue) {
-  const formatted = formatBaseCurrency(numberValue)
+function formatCurrency(decimalValue) {
+  const formatted = decimalValue
+    .toFixed(2)
     // Add commas
     .replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 

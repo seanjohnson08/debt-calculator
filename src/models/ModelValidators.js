@@ -1,3 +1,5 @@
+import { Decimal } from 'decimal.js-light';
+
 function getProperty(property) {
   return this._changedProperties.hasOwnProperty(property)
     ? this._changedProperties[property]
@@ -5,7 +7,9 @@ function getProperty(property) {
 }
 
 function setProperty(property, value) {
-  if (this[property] !== value) {
+  if (this.isLoading) {
+    this._data[property] = value;
+  } else if (this[property] !== value) {
     this._changedProperties[property] = value;
     this.isDirty = true;
   }
@@ -45,6 +49,21 @@ const ModelValidators = {
    * @memberOf Model
    */
   Boolean: createValidator(value => typeof value === 'boolean'),
+
+  /**
+   * Decimal data type
+   * @memberOf  Model
+   */
+  Decimal: createValidator(
+    value => value instanceof Decimal,
+    value => {
+      try {
+        return new Decimal(value);
+      } catch (e) {
+        return undefined;
+      }
+    }
+  ),
 
   /**
    * Integer data type

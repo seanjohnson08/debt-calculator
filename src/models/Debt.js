@@ -13,11 +13,11 @@ class Debt extends Model {
       description: Model.String,
       type: Model.Enum(DebtTypes),
       lifetime: Model.Integer,
-      principle: Model.Integer,
-      balance: Model.Integer,
+      principle: Model.Decimal,
+      balance: Model.Decimal,
       elapsedTime: Model.Integer,
       rate: Model.Number,
-      minimumMonthlyPayment: Model.Integer
+      minimumMonthlyPayment: Model.Decimal
     };
   }
 
@@ -27,8 +27,8 @@ class Debt extends Model {
       description: 'Home Mortgage',
       type: 'mortgage', // enum
       lifetime: 30 * 12, // Months
-      principle: 212000, // Dollars
-      balance: 19999, // Dollars
+      principle: 2120.0, // Dollars
+      balance: 199.99, // Dollars
       elapsedTime: 2, // Months
       rate: 1.02, // Percent
       minimumMonthlyPayment: 100 // Dollars

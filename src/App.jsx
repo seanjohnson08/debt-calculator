@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Decimal } from 'decimal.js-light';
 
 import Debt from './models/Debt';
 import Store from './services/Store';
@@ -75,8 +76,8 @@ class App extends Component {
   generateSummary() {
     return {
       totalCurrentDebt: this.state.debts.reduce(
-        (t, debt) => t + debt.principle,
-        0
+        (t, debt) => t.add(debt.principle),
+        new Decimal(0)
       )
     };
   }

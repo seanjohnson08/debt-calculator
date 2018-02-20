@@ -1,4 +1,5 @@
 import Model from './Model';
+import { Decimal } from 'decimal.js-light';
 
 class TestModel extends Model {
   properties() {
@@ -6,7 +7,8 @@ class TestModel extends Model {
       enum: Model.Enum(['enumValue']),
       integer: Model.Integer,
       string: Model.String,
-      boolean: Model.Boolean
+      boolean: Model.Boolean,
+      decimal: Model.Decimal
     };
   }
 }
@@ -81,6 +83,19 @@ it('Validates Strings', () => {
   expect(() => {
     testModelInstance.string = 1.235;
   }).toThrow();
+});
+
+it('Converts to Decimal', () => {
+  let testModelInstance = new TestModel();
+
+  testModelInstance.decimal = '12.345';
+
+  expect(testModelInstance.decimal).toBeInstanceOf(Decimal);
+  expect(testModelInstance.decimal.toFixed(4)).toBe('12.3450');
+
+  testModelInstance = new TestModel({ decimal: '12.3456' }, true);
+  expect(testModelInstance.decimal).toBeInstanceOf(Decimal);
+  expect(testModelInstance._changedProperties).toEqual({});
 });
 
 it('valueOf returns internal state', () => {

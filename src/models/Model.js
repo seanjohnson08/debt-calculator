@@ -14,7 +14,7 @@ import ModelValidators from './ModelValidators';
  * }
  */
 class Model {
-  constructor(properties) {
+  constructor(properties, isLoading = false) {
     this._assignValidators();
 
     /**
@@ -41,7 +41,9 @@ class Model {
      */
     this.isNew = true;
 
-    Object.assign(this._data, this.defaults(), properties);
+    this.isLoading = isLoading;
+    Object.assign(this, this.defaults(), properties);
+    this.isLoading = false;
   }
 
   _assignValidators() {
